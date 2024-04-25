@@ -34,7 +34,7 @@ st.markdown(
     f"""
     <div style="display: flex; align-items: center;">
         <img src="data:image/png;base64,{base64.b64encode(open(logo, 'rb').read()).decode()}" style="width: 100px; height: auto; margin-right: 20px;">
-        <h1 style='font-family: Lato;'>Analysis of the distribution of primary crops around the world</h1>
+        <h1 style='font-family: Lato; font-size: 30px;'>Analysis of the distribution of primary crops around the world</h1>
     </div>
     """,
     unsafe_allow_html=True
@@ -57,16 +57,19 @@ page = option_menu(None, ["Intro", "Crops", "Pesticides", "PowerBI", "Prediction
 # read data
 @st.cache_data()
 def load_data():
-    df = pd.read_csv("Data/df_preprocessed.csv") 
-    pest = pd.read_csv("Data/pest_preprocessed.csv") 
+    df = pd.read_csv("Data/df_preprocessed.csv")
+    pest_df = pd.read_csv("Data/pest_preprocessed.csv") # original pest dataframe
+    pest = pd.read_csv("Data/pest_crops.csv")           # pest dataframe merge with yields
     fert = pd.read_csv("data/fert_preprocessed.csv")
     geo_data = pd.read_csv('geo_final.csv')
 
-    return df, pest, fert, geo_data
+    return df, pest_df, pest, fert, geo_data
 
 # load data
-df, pest, fert, geo_data = load_data()
-
+df, pest_df, pest, fert, geo_data = load_data()
+# define color palette
+agro = ['#b2cb91','#9bc27e','#7fa465','#668f4f','#4e6f43','#59533e','#bf9000','#ffd966','#ffe599']
+agro_r = ['#ffe599','#ffd966','#bf9000','#59533e','#4e6f43','#668f4f','#7fa465','#9bc27e','#b2cb91']
 
 # ---------------------BACKGROUND IMAGE----------------------#
 
@@ -222,43 +225,144 @@ elif page == "Crops":
             else:
                 # Plotly Graph
                 fig = go.Figure(data=go.Scatter(x=yieldbyyear.index, y=yieldbyyear.values, line=dict(color='#9bc27e')))
-                fig.update_layout(xaxis_title='Year', yaxis_title='Average Yield (hg/ha)', title='Average Yield per Year',width=600, height=400,xaxis=dict(tickmode='linear', dtick=1),title_x=0.3) 
+                fig.update_layout(xaxis_title='Year', yaxis_title='Average Yield (hg/ha)', title='Average Yield per Year',width=600, height=400,xaxis=dict(tickmode='linear', dtick=1),title_x=0.35) 
                 st.plotly_chart(fig)
-# PAGE 2-------------------------------------
-elif page == "Pesticides": 
-    pass          
 # PAGE 3-------------------------------------
+elif page == "Pesticides": 
+    col1, col2 = st.columns(2)
+    with col1:
+   
+        # question 1
+        st.markdown("<div style='font-size: 24px;'><strong>Has the use of pesticides increased in the last 15 years?</strong></div>", unsafe_allow_html=True)
+        pestbyyear = pest.groupby('Year')['agricultural_use_tonnes'].mean()
+        fig = go.Figure(data=go.Scatter(x=pestbyyear.index, y=pestbyyear.values, line=dict(color=agro[3])))
+        fig.update_layout(xaxis_title='Year', yaxis_title='Pesticides use (tonnes)', title='Average pesticides use per Year',width=800, height=400,xaxis=dict(tickmode='linear', dtick=1),title_x=0.35) 
+        st.plotly_chart(fig) 
+
+        # question 2
+        st.markdown("<div style='font-size: 24px;'><strong>Does the use of pesticides affect crop yield?</strong></div>", unsafe_allow_html=True)
+        st.image("img/corr_pest.png",width=800) 
+        st.markdown('**There is a moderate positive correlation between pesticide use and crop yields**') 
+
+        # question 3 
+        st.markdown("<div style='font-size: 24px;'><strong>What is the most commonly used type of pesticide?</strong></div>", unsafe_allow_html=True)
+        pest_total_area = pest_df.groupby(['Area','pesticides_type'])['agricultural_use_tonnes'].mean().reset_index()     
+        new_palette = ['#BDF08D', '#1D761D','#C0A45E', '#764E1D', '#F5F78E', '#F7CC8E']
+        fig = px.pie(pest_total_area, values='agricultural_use_tonnes', names='pesticides_type',color_discrete_sequence=new_palette,labels={'agricultural_use_tonnes': 'Use of pesticides (tonnes)', 'pesticides_type': 'Pesticide type'})
+        fig.update_layout(
+            template="plotly_white",
+            title="Average pesticides use by type",
+            title_x=0.35,
+            width=800, height=500,
+            legend={
+                'x': 1,  
+                'y': 0.5})
+        fig.update_traces(
+            textinfo='label+percent',
+            textfont_size=12,
+            text=pest_total_area['pesticides_type'],
+            marker=dict(line=dict(color='black', width=0.5))
+        )
+        st.plotly_chart(fig)  
+
+        # question 4
+        st.markdown("<div style='font-size: 24px;'><strong>Which are the top 50 countries with the highest levels of pesticide use in tonnes?</strong></div>", unsafe_allow_html=True)
+        pest_total_area_sorted = pest_total_area.sort_values(by='agricultural_use_tonnes', ascending=False)
+        top50 = pest_total_area_sorted.head(50)
+        top50['Area'].replace('TÃ¼rkiye','Turkey',inplace=True)
+        fig = px.bar(
+            top50,
+            y='Area',
+            x='agricultural_use_tonnes',
+            color='Area',  
+            color_discrete_sequence=agro,
+            labels={'agricultural_use_tonnes': 'Use of pesticides (tonnes)', 'pesticides_type': 'Pesticide type'}
+        )
+        # Especificar el orden de las categorías en el eje y
+        fig.update_layout(title='top50 countries using pesticides',title_x=0.35,yaxis={'categoryorder':'total ascending'},width=800, height=600,showlegend=False)
+        st.plotly_chart(fig)
+    
+# PAGE 4-------------------------------------
 elif page == "PowerBI": 
     pass
 
-# PAGE 4-------------------------------------
-elif page == "Predictions": 
-    st.title('Predicción del precio de los alojamientos de airbnb en Roma')
-# ---------------------TABS (pestañas)----------------------#
-    tab1, tab2 = st.tabs(
-        ['Yield predictor','--']) 
-    with tab1:
+# PAGE 5-------------------------------------
+elif page == "Predictions":
+    st.markdown("<p style='color: darkgreen; font-size: 36px; text-align: center;'>CropWise 🌱</p>", unsafe_allow_html=True)
+    st.markdown("<p style='color: darkgreen; font-size: 24px; text-align: center;'>A crop recommendation platform using machine learning</p>", unsafe_allow_html=True)
 
-        ## -- Carga de archivos 
-        scaler = load('scaler.pkl')
-        encoder = load('encoder.pkl')
-        model = load_model('models/yield_RF') #Le cargamos el modelo que he entrenado con rf
-        # # read JSON file with countries list
-        # with open('json/countries_final.json', 'r') as f:
-        #     countries = json.load(f)
-        # read JSON file with crop list
-        with open('json/crops.json', 'r') as f:
-            crops = json.load(f)
-    # # --------------------------------------------------------------------------------------
+    ## -- Carga de archivos 
+    scaler_regr = load('scaler_regr.pkl') # scaler del modelo de regresion
+    scaler_classif = load('scaler_classif.pkl') # scaler del modelo de clasificacion
+    encoder = load('encoder.pkl') 
+    model_regr = load_model('models/yield_RF') #Le cargamos el modelo (de regresion) que he entrenado con rf
+    model_classif = load_model('models/yield_RF') #Le cargamos el modelo (de clasificacion) que he entrenado con rf
+
+    # # read JSON file with countries list
+    with open('json/countries_final.json', 'r') as f:
+        countries = json.load(f)
+    # read JSON file with crop list
+    with open('json/crops.json', 'r') as f:
+        crops = json.load(f)
+     # ---------------------TABS (pestañas)----------------------#
+    tab1, tab2 = st.tabs(
+        ['Best crop predictor','Yield predictor']) 
+    
+    # PREDICTOR 1 ---------------------------------------------------------   
+
+    with tab1:
+        
+
         # definir rangos
         area_min = 1.0
-        area_max = 50000000.0
-        prod_min = 0.06
-        prod_max = 800000000.0
+        area_max = 100000.0
+        prec_min = 0.06
+        prec_max = 300000.0
         temp_min = - 5.0
         temp_max = 30.0
         
+        with st.form("prediction_form"): #Metemos todas las variables que hemos usado en el entrenamiento, en el mismo orden
+            country = st.selectbox('Country:', countries)
+            # creamos sliders para seleccionar rangos
+            area_harvested = st.slider('Harvested area (ha):', area_min, area_max)
+            prec = st.slider('Rainfall per year (mm):', prec_min, prec_max)
+            temp = st.slider('Temperature (ºC):', temp_min, temp_max)
+            submit_button = st.form_submit_button(label='Predict best crop')
 
+            if submit_button:
+                input_data = pd.DataFrame([[country,area_harvested, prec, temp]],
+                                        columns=['Area','area_harvested_ha', 'avg_rainfall_mm_year', 'avg_temp_ºC']) # mismo orden que entrenamiento
+            # Mismo orden que en el notebook 
+
+            # 1- Codificar las variables categóricas a números utilizando el encoder
+                input_data['Area'] = encoder.transform(input_data['Area'])
+
+            # 2 - Después normalizo los datos de entrada
+                input_data_scaled = scaler_classif.transform(input_data)
+    
+
+            # 3 - Realiza la predicción con el modelo
+        
+                prediction = model_classif.predict(input_data_scaled)
+                
+            # 4 - Deshacer la codificación utilizando el método inverse_transform
+                input_data['Area'] = encoder.inverse_transform(input_data['Area'])
+
+                # Asegurémonos de acceder al nombre correcto de la columna de predicciones
+                predicted_crop = prediction[-1]  # Generalmente, la predicción está en la última columna
+                st.write(f"<p style='font-size: 24px; font-weight: bold;'>The best crop based on the selected variables is: {predicted_crop:.2f}</p>", unsafe_allow_html=True)
+
+    # PREDICTOR 2 ---------------------------------------------------------   
+        
+    with tab2:
+        # definir rangos
+        area_min = 1.0
+        area_max = 100000.0
+        prod_min = 0.06
+        prod_max = 300000.0
+        temp_min = - 5.0
+        temp_max = 30.0
+        
         with st.form("prediction_form"): #Metemos todas las variables que hemos usado en el entrenamiento, en el mismo orden
             # country = st.selectbox('Country:', countries)
             crop = st.selectbox('Crop:', crops)
@@ -269,26 +373,24 @@ elif page == "Predictions":
             submit_button = st.form_submit_button(label='Predict yield')
 
         if submit_button:
-            input_data = pd.DataFrame([[crop, area_harvested, production, temp]],
+            input_data = pd.DataFrame([[crop,area_harvested, production, temp]],
                                     columns=['Crop','area_harvested_ha', 'production_tonnes', 'avg_temp_ºC']) # mismo orden que entrenamiento
         # Mismo orden que en el notebook 
 
         # 1- Codificar las variables categóricas a números utilizando el encoder
-            # input_data['Area'] = encoder.transform(input_data['Area'])
             input_data['Crop'] = encoder.transform(input_data['Crop'])
+
         # 2 - Después normalizo los datos de entrada
-            input_data_scaled = scaler.transform(input_data)
-  
+            input_data_scaled = scaler_regr.transform(input_data)
+
 
         # 3 - Realiza la predicción con el modelo
     
-            prediction = model.predict(input_data_scaled)
+            prediction = model_regr.predict(input_data_scaled)
             
         # 4 - Deshacer la codificación utilizando el método inverse_transform
             input_data['Crop'] = encoder.inverse_transform(input_data['Crop'])
-            
-
 
             # Asegurémonos de acceder al nombre correcto de la columna de predicciones
             predicted_yield = prediction[-1]  # Generalmente, la predicción está en la última columna
-            st.write(f"The prediction of the crop yield based on the selected variables is: {predicted_yield:.2f} hg/ha")
+            st.write(f"<p style='font-size: 24px; font-weight: bold;'>The prediction of the crop yield based on the selected variables is: {predicted_yield:.2f} hg/ha</p>", unsafe_allow_html=True)
