@@ -40,9 +40,9 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# # ---------------------MENU----------------------#
+# # ---------------------MENU----------------------# clipboard-plus
 
-page = option_menu(None, ["Intro", "Crops", "Pesticides", "PowerBI", "Predictions"], 
+page = option_menu(None, ["Intro", "Crops", "Pesticides", "Fertilizers", "Predictions"], 
     icons=["house", "tree", "bug", "clipboard-plus","bullseye"], 
     menu_icon="cast", default_index=0, orientation="horizontal",
     styles={
@@ -89,19 +89,19 @@ def add_bg_from_local(image_file):
     )
 add_bg_from_local("img/wheat_mod.jpg")  
 
-st.markdown(
-    f"""
-    <style>
-    [data-testid="stHeader"] {{
-    background-color: rgba(0, 0, 0, 0);
-    }}
-    [data-testid="stSidebar"]{{                 
-    background-color: rgba(0, 0, 0, 0);
-    border: 0.5px solid #59533e;
-        }}
-    </style>
-    """
-, unsafe_allow_html=True)
+# st.markdown(
+#     f"""
+#     <style>
+#     [data-testid="stHeader"] {{
+#     background-color: rgba(0, 0, 0, 0);
+#     }}
+#     [data-testid="stSidebar"]{{                 
+#     background-color: rgba(0, 0, 0, 0);
+#     border: 0.5px solid #59533e;
+#         }}
+#     </style>
+#     """
+# , unsafe_allow_html=True)
 
 
 # ---------------------BODY----------------------#
@@ -283,9 +283,13 @@ elif page == "Pesticides":
         st.plotly_chart(fig)
     
 # PAGE 4-------------------------------------
-elif page == "PowerBI": 
-    pass
-
+elif page == "Fertilizers": 
+    st.markdown("<h1 style='text-align: center; color: black;'> <strong>Interactive PowerBI panel</strong> </h1>", unsafe_allow_html=True)
+    # Power BI panel HTML code
+    html_code =  """<iframe title="panel_airbnb" width="600" height="373.5" src="<iframe title="proyecto_agrotech" width="600" height="373.5" src="https://app.powerbi.com/view?r=eyJrIjoiZThkOTUxOTktYjNmNC00MmZlLWFlMGQtYWVkYmE2ZTRiODAzIiwidCI6IjhhZWJkZGI2LTM0MTgtNDNhMS1hMjU1LWI5NjQxODZlY2M2NCIsImMiOjl9" frameborder="0" allowFullScreen="true"></iframe>" frameborder="0" allowFullScreen="true"></iframe>
+    """
+    # Insert HTML code 
+    components.html(html_code, height = 1000)
 # PAGE 5-------------------------------------
 elif page == "Predictions":
     st.markdown("<p style='color: darkgreen; font-size: 36px; text-align: center;'>CropWise 🌱</p>", unsafe_allow_html=True)
