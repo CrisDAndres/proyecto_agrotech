@@ -6,7 +6,6 @@ import numpy as np
 import pandas as pd
 import base64
 # Visualization
-import pydeck as pdk
 import geopandas as gpd
 import seaborn as sns
 import matplotlib.pyplot as plt
