@@ -12,12 +12,10 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import plotly_express as px
 import plotly.graph_objects as go
-from plotly.subplots import make_subplots
 # modelling and forecasting
 import json
 from joblib import load
 from pycaret.regression import load_model, predict_model
-import xgboost as xgb
 
 # ---------------------SITE CONFIG----------------------#
 st.set_page_config(
@@ -286,8 +284,7 @@ elif page == "Pesticides":
 elif page == "Fertilizers": 
     st.markdown("<h1 style='text-align: center; color: black;'> <strong>Interactive PowerBI panel</strong> </h1>", unsafe_allow_html=True)
     # Power BI panel HTML code
-    html_code =  """<iframe title="panel_airbnb" width="600" height="373.5" src="<iframe title="proyecto_agrotech" width="600" height="373.5" src="https://app.powerbi.com/view?r=eyJrIjoiZThkOTUxOTktYjNmNC00MmZlLWFlMGQtYWVkYmE2ZTRiODAzIiwidCI6IjhhZWJkZGI2LTM0MTgtNDNhMS1hMjU1LWI5NjQxODZlY2M2NCIsImMiOjl9" frameborder="0" allowFullScreen="true"></iframe>" frameborder="0" allowFullScreen="true"></iframe>
-    """
+    html_code = """<iframe title="proyecto_agrotech" width="1140" height="541.25" src="https://app.powerbi.com/reportEmbed?reportId=d5e9d64d-7a09-4db0-8444-5725a56b2cd4&autoAuth=true&ctid=8aebddb6-3418-43a1-a255-b964186ecc64" frameborder="0" allowFullScreen="true"></iframe>"""
     # Insert HTML code 
     components.html(html_code, height = 1000)
 # PAGE 5-------------------------------------

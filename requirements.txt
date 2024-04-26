@@ -1,11 +1,14 @@
 streamlit
 numpy
 pandas
+base64
 pydeck
 geopandas
 seaborn
 matplotlib
 plotly-express
+plotly.graph_objects
 plotly
+json
 joblib
 pycaret
