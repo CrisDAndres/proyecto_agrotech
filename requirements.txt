@@ -7,6 +7,5 @@ seaborn
 matplotlib
 plotly-express
 plotly
-json
 joblib
 pycaret
