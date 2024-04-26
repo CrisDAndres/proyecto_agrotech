@@ -294,14 +294,25 @@ elif page == "Predictions":
     ## -- Carga de archivos 
     scaler_regr = load('scaler_regr.pkl') # scaler del modelo de regresion
     scaler_classif = load('scaler_classif.pkl') # scaler del modelo de clasificacion
-    encoder = load('encoder.pkl') 
     model_regr = load_model('models/yield_RF') #Le cargamos el modelo (de regresion) que he entrenado con rf
-    model_classif = load_model('models/yield_RF') #Le cargamos el modelo (de clasificacion) que he entrenado con rf
+    model_classif = load_model('models/crop_RF') #Le cargamos el modelo (de clasificacion) que he entrenado con rf
 
     # # read JSON file with countries list
+    with open('json/encoder_area.json', 'r') as f:
+        encoder_area = json.load(f)
+    # read JSON file with crop list
+    with open('json/encoder_crop.json', 'r') as f:
+        encoder_crop = json.load(f)
+    # # read JSON file with countries list
+    with open('json/decoder_area.json', 'r') as f:
+        decoder_area = json.load(f)
+    # read JSON file with crop list
+    with open('json/decoder_crop.json', 'r') as f:
+        decoder_crop = json.load(f)
+# # read JSON file with countries list
     with open('json/countries_final.json', 'r') as f:
         countries = json.load(f)
-    # read JSON file with crop list
+# read JSON file with crop list
     with open('json/crops.json', 'r') as f:
         crops = json.load(f)
      # ---------------------TABS (pestañas)----------------------#
@@ -315,13 +326,13 @@ elif page == "Predictions":
 
         # definir rangos
         area_min = 1.0
-        area_max = 100000.0
-        prec_min = 0.06
-        prec_max = 300000.0
+        area_max = 3000000.0  
+        prec_min = 0.05
+        prec_max = 4000.0
         temp_min = - 5.0
         temp_max = 30.0
         
-        with st.form("prediction_form"): #Metemos todas las variables que hemos usado en el entrenamiento, en el mismo orden
+        with st.form("best_crop_prediction_form"): #Metemos todas las variables que hemos usado en el entrenamiento, en el mismo orden
             country = st.selectbox('Country:', countries)
             # creamos sliders para seleccionar rangos
             area_harvested = st.slider('Harvested area (ha):', area_min, area_max)
@@ -334,8 +345,8 @@ elif page == "Predictions":
                                         columns=['Area','area_harvested_ha', 'avg_rainfall_mm_year', 'avg_temp_ºC']) # mismo orden que entrenamiento
             # Mismo orden que en el notebook 
 
-            # 1- Codificar las variables categóricas a números utilizando el encoder
-                input_data['Area'] = encoder.transform(input_data['Area'])
+            # 1- Primero codifico a números lo que ingresa el usuario utilizando el json de mapeo
+                input_data['Area'] = input_data['Area'].replace(encoder_area)
 
             # 2 - Después normalizo los datos de entrada
                 input_data_scaled = scaler_classif.transform(input_data)
@@ -345,25 +356,26 @@ elif page == "Predictions":
         
                 prediction = model_classif.predict(input_data_scaled)
                 
-            # 4 - Deshacer la codificación utilizando el método inverse_transform
-                input_data['Area'] = encoder.inverse_transform(input_data['Area'])
+              
+            # 4 - Por último decodifico los barrios utilizando el diccionario de mapeo inverso
+                input_data['Area'] = input_data['Area'].replace(decoder_area)
 
                 # Asegurémonos de acceder al nombre correcto de la columna de predicciones
                 predicted_crop = prediction[-1]  # Generalmente, la predicción está en la última columna
-                st.write(f"<p style='font-size: 24px; font-weight: bold;'>The best crop based on the selected variables is: {predicted_crop:.2f}</p>", unsafe_allow_html=True)
+                st.write(f"<p style='font-size: 24px; font-weight: bold;'>The best crop based on the selected variables is: {predicted_crop}</p>", unsafe_allow_html=True)
 
     # PREDICTOR 2 ---------------------------------------------------------   
         
     with tab2:
         # definir rangos
         area_min = 1.0
-        area_max = 100000.0
+        area_max = 3000000.0 
         prod_min = 0.06
-        prod_max = 300000.0
+        prod_max = 15000000.0   
         temp_min = - 5.0
         temp_max = 30.0
         
-        with st.form("prediction_form"): #Metemos todas las variables que hemos usado en el entrenamiento, en el mismo orden
+        with st.form("yield_prediction_form"): #Metemos todas las variables que hemos usado en el entrenamiento, en el mismo orden
             # country = st.selectbox('Country:', countries)
             crop = st.selectbox('Crop:', crops)
             # creamos sliders para seleccionar rangos
@@ -372,25 +384,26 @@ elif page == "Predictions":
             temp = st.slider('Temperature (ºC):', temp_min, temp_max,temp_min)
             submit_button = st.form_submit_button(label='Predict yield')
 
-        if submit_button:
-            input_data = pd.DataFrame([[crop,area_harvested, production, temp]],
-                                    columns=['Crop','area_harvested_ha', 'production_tonnes', 'avg_temp_ºC']) # mismo orden que entrenamiento
-        # Mismo orden que en el notebook 
+            if submit_button:
+                input_data = pd.DataFrame([[crop,area_harvested, production, temp]],
+                                        columns=['Crop','area_harvested_ha', 'production_tonnes', 'avg_temp_ºC']) # mismo orden que entrenamiento
+            # Mismo orden que en el notebook 
 
-        # 1- Codificar las variables categóricas a números utilizando el encoder
-            input_data['Crop'] = encoder.transform(input_data['Crop'])
+            # 1- Primero codifico a números lo que ingresa el usuario utilizando el json de mapeo
+                input_data['Crop'] = input_data['Crop'].replace(encoder_crop)
 
-        # 2 - Después normalizo los datos de entrada
-            input_data_scaled = scaler_regr.transform(input_data)
+            # 2 - Después normalizo los datos de entrada
+                input_data_scaled = scaler_regr.transform(input_data)
 
 
-        # 3 - Realiza la predicción con el modelo
-    
-            prediction = model_regr.predict(input_data_scaled)
-            
-        # 4 - Deshacer la codificación utilizando el método inverse_transform
-            input_data['Crop'] = encoder.inverse_transform(input_data['Crop'])
+            # 3 - Realiza la predicción con el modelo
+        
+                prediction = model_regr.predict(input_data_scaled)
+                
+              
+            # 4 - Por último decodifico los barrios utilizando el diccionario de mapeo inverso
+                input_data['Crop'] = input_data['Crop'].replace(decoder_crop)
 
-            # Asegurémonos de acceder al nombre correcto de la columna de predicciones
-            predicted_yield = prediction[-1]  # Generalmente, la predicción está en la última columna
-            st.write(f"<p style='font-size: 24px; font-weight: bold;'>The prediction of the crop yield based on the selected variables is: {predicted_yield:.2f} hg/ha</p>", unsafe_allow_html=True)
+                # Asegurémonos de acceder al nombre correcto de la columna de predicciones
+                predicted_yield = prediction[-1]  # Generalmente, la predicción está en la última columna
+                st.write(f"<p style='font-size: 24px; font-weight: bold;'>The prediction of the crop yield based on the selected variables is: {predicted_yield:.2f} hg/ha</p>", unsafe_allow_html=True)
