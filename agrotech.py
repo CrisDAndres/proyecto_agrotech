@@ -93,20 +93,6 @@ def add_bg_from_local(image_file):
     )
 add_bg_from_local("img/wheat_mod.jpg")  
 
-# st.markdown(
-#     f"""
-#     <style>
-#     [data-testid="stHeader"] {{
-#     background-color: rgba(0, 0, 0, 0);
-#     }}
-#     [data-testid="stSidebar"]{{                 
-#     background-color: rgba(0, 0, 0, 0);
-#     border: 0.5px solid #59533e;
-#         }}
-#     </style>
-#     """
-# , unsafe_allow_html=True)
-
 
 # ---------------------BODY----------------------#
 
