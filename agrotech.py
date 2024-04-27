@@ -53,7 +53,7 @@ page = option_menu(None, ["Intro", "Crops", "Pesticides", "Fertilizers", "Predic
 
 # ---------------------LOAD DATA----------------------#
 
-# Descargar archivos desde Google Drive
+# download files from google drive
 df_url = 'https://drive.google.com/uc?id=1R1fslBGYK-Jqnb4sjARC5qCof85_MxYy'
 pest_df_url = 'https://drive.google.com/uc?id=1kvYkeQ3aDCkT2DX8OwlcPrWlOZRNY8S8'
 pest_url = 'https://drive.google.com/uc?id=1Xz4M1IUWEUkJdoOU70rgPgFCROIqTPKe'
@@ -130,19 +130,19 @@ elif page == "Crops":
             # Ordenar los cultivos en base a la opción seleccionada
             if order_by == 'Area Harvested':
                 if ascending_order:
-                    sorted_crops = df.groupby('Crop')['area_harvested_ha'].mean().sort_values(ascending=True)
+                    sorted_crops = df.groupby('Crop')['area_harvested_ha'].mean().sort_values(ascending=True).round(2)
                 else:
-                    sorted_crops = df.groupby('Crop')['area_harvested_ha'].mean().sort_values(ascending=False)
+                    sorted_crops = df.groupby('Crop')['area_harvested_ha'].mean().sort_values(ascending=False).round(2)
             elif order_by == 'Production':
                 if ascending_order:
-                    sorted_crops = df.groupby('Crop')['production_tonnes'].mean().sort_values(ascending=True)
+                    sorted_crops = df.groupby('Crop')['production_tonnes'].mean().sort_values(ascending=True).round(2)
                 else:
-                    sorted_crops = df.groupby('Crop')['production_tonnes'].mean().sort_values(ascending=False)
+                    sorted_crops = df.groupby('Crop')['production_tonnes'].mean().sort_values(ascending=False).round(2)
             else:  # 'Yield'
                 if ascending_order:
-                    sorted_crops = df.groupby('Crop')['yield_hg/ha'].mean().sort_values(ascending=True)
+                    sorted_crops = df.groupby('Crop')['yield_hg/ha'].mean().sort_values(ascending=True).round(2)
                 else:
-                    sorted_crops = df.groupby('Crop')['yield_hg/ha'].mean().sort_values(ascending=False)
+                    sorted_crops = df.groupby('Crop')['yield_hg/ha'].mean().sort_values(ascending=False).round(2)
             
         else:
         # Filtrar los datos de los cultivos por el área seleccionada
@@ -154,21 +154,21 @@ elif page == "Crops":
             # Ordenar los cultivos en base a la opción seleccionada
             if order_by == 'Area Harvested':
                 if ascending_order:
-                    sorted_crops = df[df['Area'] == selected_area].groupby('Crop')['area_harvested_ha'].mean().sort_values(ascending=True)
+                    sorted_crops = df[df['Area'] == selected_area].groupby('Crop')['area_harvested_ha'].mean().sort_values(ascending=True).round(2)
                 else:
-                    sorted_crops = df[df['Area'] == selected_area].groupby('Crop')['area_harvested_ha'].mean().sort_values(ascending=False)
+                    sorted_crops = df[df['Area'] == selected_area].groupby('Crop')['area_harvested_ha'].mean().sort_values(ascending=False).round(2)
 
             elif order_by == 'Production':
                 if ascending_order:
-                    sorted_crops = df[df['Area'] == selected_area].groupby('Crop')['production_tonnes'].mean().sort_values(ascending=True)
+                    sorted_crops = df[df['Area'] == selected_area].groupby('Crop')['production_tonnes'].mean().sort_values(ascending=True).round(2)
                 else:
-                    sorted_crops = df[df['Area'] == selected_area].groupby('Crop')['production_tonnes'].mean().sort_values(ascending=False)
+                    sorted_crops = df[df['Area'] == selected_area].groupby('Crop')['production_tonnes'].mean().sort_values(ascending=False).round(2)
                 
             else:  # 'Yield'
                 if ascending_order:
-                    sorted_crops = df[df['Area'] == selected_area].groupby('Crop')['yield_hg/ha'].mean().sort_values(ascending=True)
+                    sorted_crops = df[df['Area'] == selected_area].groupby('Crop')['yield_hg/ha'].mean().sort_values(ascending=True).round(2)
                 else:
-                    sorted_crops = df[df['Area'] == selected_area].groupby('Crop')['yield_hg/ha'].mean().sort_values(ascending=False)
+                    sorted_crops = df[df['Area'] == selected_area].groupby('Crop')['yield_hg/ha'].mean().sort_values(ascending=False).round(2)
             
         # Mostrar los cultivos ordenados
         st.write('Crops in', selected_area, 'ordered by average', order_by, 'between 2010 and 2022:')
