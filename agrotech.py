@@ -173,12 +173,13 @@ elif page == "Crops":
                         - **Average yield**
                         - **Average annual rainfall** around the globe:
                         """)
-            # Leer el contenido del archivo HTML
-            with open("html/agromap.html", 'r', encoding='utf-8') as HtmlFile:
-                source_code = HtmlFile.read()
-
-            # Mostrar el contenido HTML en Streamlit
-            st.markdown(source_code, unsafe_allow_html=True)
+            # Abrir archivo html con la información de los mapas generados con folium en modo lectura
+            HtmlFile = open("html/agromap.html", 'r', encoding='utf-8')
+            # Leer y cargar en la variable source_code
+            source_code = HtmlFile.read() 
+            print(source_code)
+            # visualizar el contenido en streamlit
+            components.html(source_code, height = 600)
         # Correlation
         st.markdown('### Correlation')
         # Selector de radio para elegir entre las opciones
@@ -274,8 +275,12 @@ elif page == "Pesticides":
 # PAGE 4-------------------------------------
 elif page == "Fertilizers": 
     st.markdown("<h1 style='text-align: center; color: black;'> <strong>Interactive PowerBI panel</strong> </h1>", unsafe_allow_html=True)
-    # Power BI panel HTML code
-    html_code = """<iframe title="proyecto_agrotech" width="1140" height="541.25" src="https://app.powerbi.com/reportEmbed?reportId=d5e9d64d-7a09-4db0-8444-5725a56b2cd4&autoAuth=true&ctid=8aebddb6-3418-43a1-a255-b964186ecc64" frameborder="0" allowFullScreen="true"></iframe>"""
+    # Power BI panel HTML code centered
+    html_code = """
+    <div style="display: flex; justify-content: center;">
+        <iframe title="proyecto_agrotech" width="1140" height="541.25" src="https://app.powerbi.com/reportEmbed?reportId=d5e9d64d-7a09-4db0-8444-5725a56b2cd4&autoAuth=true&ctid=8aebddb6-3418-43a1-a255-b964186ecc64" frameborder="0" allowFullScreen="true"></iframe>
+    </div>
+    """  
     # Insert HTML code 
     components.html(html_code, height = 1000)
 # PAGE 5-------------------------------------
