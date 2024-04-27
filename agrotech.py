@@ -54,20 +54,22 @@ page = option_menu(None, ["Intro", "Crops", "Pesticides", "Fertilizers", "Predic
 # ---------------------LOAD DATA----------------------#
 
 # Descargar archivos desde Google Drive
-url = 'https://drive.google.com/file/d/1R1fslBGYK-Jqnb4sjARC5qCof85_MxYy/view?usp=sharing'
-df = 'df_preprocessed.csv'
-gdown.download(url, df, quiet=False)
-url = 'https://drive.google.com/file/d/1kvYkeQ3aDCkT2DX8OwlcPrWlOZRNY8S8/view?usp=drive_link'
-pest_df = 'pest_preprocessed.csv'
-gdown.download(url, pest_df, quiet=False)
-url = 'https://drive.google.com/file/d/1Xz4M1IUWEUkJdoOU70rgPgFCROIqTPKe/view?usp=drive_link'
-pest = 'pest_crops.csv'
-gdown.download(url, pest, quiet=False)
+df_url = 'https://drive.google.com/uc?id=1R1fslBGYK-Jqnb4sjARC5qCof85_MxYy'
+pest_df_url = 'https://drive.google.com/uc?id=1kvYkeQ3aDCkT2DX8OwlcPrWlOZRNY8S8'
+pest_url = 'https://drive.google.com/uc?id=1Xz4M1IUWEUkJdoOU70rgPgFCROIqTPKe'
 
-# read data
+df = 'df_preprocessed.csv'
+pest_df = 'pest_preprocessed.csv'
+pest = 'pest_crops.csv'
+
+gdown.download(df_url, df, quiet=True)
+gdown.download(pest_df_url, pest_df, quiet=True)
+gdown.download(pest_url, pest, quiet=True)
+
+# Leer datos
 df = pd.read_csv(df)
-pest_df = pd.read_csv(pest_df) # original pest dataframe
-pest = pd.read_csv(pest)    
+pest_df = pd.read_csv(pest_df)
+pest = pd.read_csv(pest)   
 
 # define color palette
 agro = ['#b2cb91','#9bc27e','#7fa465','#668f4f','#4e6f43','#59533e','#bf9000','#ffd966','#ffe599']
