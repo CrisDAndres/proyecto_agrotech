@@ -38,7 +38,7 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# # ---------------------MENU----------------------# clipboard-plus
+# # ---------------------MENU----------------------# 
 
 page = option_menu(None, ["Intro", "Crops", "Pesticides", "Fertilizers", "Predictions"], 
     icons=["house", "tree", "bug", "clipboard-plus","bullseye"], 
@@ -65,9 +65,9 @@ pest = 'pest_crops.csv'
 gdown.download(url, pest, quiet=False)
 
 # read data
-df = pd.read_csv("Data/df_preprocessed.csv")
-pest_df = pd.read_csv("Data/pest_preprocessed.csv") # original pest dataframe
-pest = pd.read_csv("Data/pest_crops.csv")    
+df = pd.read_csv(df)
+pest_df = pd.read_csv(pest_df) # original pest dataframe
+pest = pd.read_csv(pest)    
 
 # define color palette
 agro = ['#b2cb91','#9bc27e','#7fa465','#668f4f','#4e6f43','#59533e','#bf9000','#ffd966','#ffe599']
