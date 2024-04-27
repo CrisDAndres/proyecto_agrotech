@@ -5,6 +5,7 @@ from streamlit_option_menu import option_menu
 import numpy as np
 import pandas as pd
 import base64
+import gdown
 # Visualization
 import geopandas as gpd
 import seaborn as sns
@@ -51,19 +52,23 @@ page = option_menu(None, ["Intro", "Crops", "Pesticides", "Fertilizers", "Predic
 )
 
 # ---------------------LOAD DATA----------------------#
+
+# Descargar archivos desde Google Drive
+url = 'https://drive.google.com/file/d/1R1fslBGYK-Jqnb4sjARC5qCof85_MxYy/view?usp=sharing'
+df = 'df_preprocessed.csv'
+gdown.download(url, df, quiet=False)
+url = 'https://drive.google.com/file/d/1kvYkeQ3aDCkT2DX8OwlcPrWlOZRNY8S8/view?usp=drive_link'
+pest_df = 'pest_preprocessed.csv'
+gdown.download(url, pest_df, quiet=False)
+url = 'https://drive.google.com/file/d/1Xz4M1IUWEUkJdoOU70rgPgFCROIqTPKe/view?usp=drive_link'
+pest = 'pest_crops.csv'
+gdown.download(url, pest, quiet=False)
+
 # read data
-@st.cache_data()
-def load_data():
-    df = pd.read_csv("Data/df_preprocessed.csv")
-    pest_df = pd.read_csv("Data/pest_preprocessed.csv") # original pest dataframe
-    pest = pd.read_csv("Data/pest_crops.csv")           # pest dataframe merge with yields
-    fert = pd.read_csv("data/fert_preprocessed.csv")
-    geo_data = pd.read_csv('geo_final.csv')
+df = pd.read_csv("Data/df_preprocessed.csv")
+pest_df = pd.read_csv("Data/pest_preprocessed.csv") # original pest dataframe
+pest = pd.read_csv("Data/pest_crops.csv")    
 
-    return df, pest_df, pest, fert, geo_data
-
-# load data
-df, pest_df, pest, fert, geo_data = load_data()
 # define color palette
 agro = ['#b2cb91','#9bc27e','#7fa465','#668f4f','#4e6f43','#59533e','#bf9000','#ffd966','#ffe599']
 agro_r = ['#ffe599','#ffd966','#bf9000','#59533e','#4e6f43','#668f4f','#7fa465','#9bc27e','#b2cb91']
