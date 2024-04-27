@@ -187,13 +187,12 @@ elif page == "Crops":
                         - **Average yield**
                         - **Average annual rainfall** around the globe:
                         """)
-            # Abrir archivo html con la información de los mapas generados con folium en modo lectura
-            HtmlFile = open("html/agromap.html", 'r', encoding='utf-8')
-            # Leer y cargar en la variable source_code
-            source_code = HtmlFile.read() 
-            print(source_code)
-            # visualizar el contenido en streamlit
-            components.html(source_code, height = 600)
+            # Leer el contenido del archivo HTML
+            with open("html/agromap.html", 'r', encoding='utf-8') as HtmlFile:
+                source_code = HtmlFile.read()
+
+            # Mostrar el contenido HTML en Streamlit
+            st.markdown(source_code, unsafe_allow_html=True)
         # Correlation
         st.markdown('### Correlation')
         # Selector de radio para elegir entre las opciones
