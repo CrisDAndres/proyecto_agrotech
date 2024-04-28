@@ -54,23 +54,23 @@ page = option_menu(None, ["Intro", "Crops", "Pesticides", "Fertilizers", "Predic
 
 # ---------------------LOAD DATA----------------------#
 
-# download files from google drive
+# read files from google drive
 df_url = 'https://drive.google.com/uc?id=1R1fslBGYK-Jqnb4sjARC5qCof85_MxYy'
 pest_df_url = 'https://drive.google.com/uc?id=1kvYkeQ3aDCkT2DX8OwlcPrWlOZRNY8S8'
 pest_url = 'https://drive.google.com/uc?id=1Xz4M1IUWEUkJdoOU70rgPgFCROIqTPKe'
 
-df = 'df_preprocessed.csv'
-pest_df = 'pest_preprocessed.csv'
-pest = 'pest_crops.csv'
+# df = 'df_preprocessed.csv'
+# pest_df = 'pest_preprocessed.csv'
+# pest = 'pest_crops.csv'
 
-gdown.download(df_url, df, quiet=True)
-gdown.download(pest_df_url, pest_df, quiet=True)
-gdown.download(pest_url, pest, quiet=True)
+# gdown.download(df_url, df, quiet=True)
+# gdown.download(pest_df_url, pest_df, quiet=True)
+# gdown.download(pest_url, pest, quiet=True)
 
 # read data
-df = pd.read_csv(df)
-pest_df = pd.read_csv(pest_df)
-pest = pd.read_csv(pest)   
+df = pd.read_csv(df_url)
+pest_df = pd.read_csv(pest_df_url)
+pest = pd.read_csv(pest_url)   
 
 # define color palette
 agro = ['#b2cb91','#9bc27e','#7fa465','#668f4f','#4e6f43','#59533e','#bf9000','#ffd966','#ffe599']
@@ -294,15 +294,15 @@ elif page == "Predictions":
     url1 = "https://drive.google.com/uc?id=1TfydDkRqT2zJINmXc6RvrG7HOEuxkZgG"
     url2 = "https://drive.google.com/uc?id=1jRCQOX5_n6-Z-KtTZaCaDg-HNIneG6wN"
     
-    model_classif = "crop_RF.pkl"
-    model_regr = "yield_RF.pkl"
+    # model_classif = "crop_RF.pkl"
+    # model_regr = "yield_RF.pkl"
     
-    gdown.download(url1, model_classif, quiet=True) # classification Random Forest model
-    gdown.download(url2, model_regr, quiet=True) # regression Random Forest model
+    # gdown.download(url1, model_classif, quiet=True) # classification Random Forest model
+    # gdown.download(url2, model_regr, quiet=True) # regression Random Forest model
     
     # upload models
-    model_classif = load(model_classif)
-    model_regr = load(model_regr)
+    model_classif = load(url1) # classification Random Forest model
+    model_regr = load(url2) # regression Random Forest model
     
     # upload scalers
     scaler_classif = load('scaler_classif.pkl') # classification model scaler
