@@ -306,29 +306,29 @@ elif page == "Predictions":
     st.markdown("<p style='color: darkgreen; font-size: 36px; text-align: center;'>CropWise 🌱</p>", unsafe_allow_html=True)
     st.markdown("<p style='color: darkgreen; font-size: 24px; text-align: center;'>A crop recommendation platform using machine learning</p>", unsafe_allow_html=True)
     
-    # # download models files from google drive
-    # url1 = "https://drive.google.com/uc?id=1TfydDkRqT2zJINmXc6RvrG7HOEuxkZgG"
-    # url2 = "https://drive.google.com/uc?id=1jRCQOX5_n6-Z-KtTZaCaDg-HNIneG6wN"
+    # download models files from google drive
+    url1 = "https://drive.google.com/uc?id=1TfydDkRqT2zJINmXc6RvrG7HOEuxkZgG"
+    url2 = "https://drive.google.com/uc?id=1jRCQOX5_n6-Z-KtTZaCaDg-HNIneG6wN"
     
-    # model_classif = "crop_RF.pkl"
-    # model_regr = "yield_RF.pkl"
+    model_classif = "crop_RF.pkl"
+    model_regr = "yield_RF.pkl"
 
-    # gdown.download(url1, model_classif,quiet=True) # classification Random Forest model
-    # gdown.download(url2, model_regr,quiet=True) # regression Random Forest model
+    gdown.download(url1, model_classif,quiet=True) # classification Random Forest model
+    gdown.download(url2, model_regr,quiet=True) # regression Random Forest model
     
-    # # upload models
-    # model_classif = load_model(model_classif)
-    # model_regr = load_model(model_regr)
+    # upload models
+    model_classif = load_model(model_classif)
+    model_regr = load_model(model_regr)
     
-    # # upload scalers
-    # scaler_classif = load('scaler_classif.pkl') # classification model scaler
-    # scaler_regr = load('scaler_regr.pkl') # regression model scaler
+    # upload scalers
+    scaler_classif = load('scaler_classif.pkl') # classification model scaler
+    scaler_regr = load('scaler_regr.pkl') # regression model scaler
     
     ## upload files from local
     scaler_regr = load('outputs/scaler_regr.pkl') # regression model scaler
     scaler_classif = load('outputs/scaler_classif.pkl') # classification model scaler
-    model_regr = load_model('models/yield_RF') # regression Random Forest model
-    model_classif = load_model('models/crop_RF') # classification Random Forest model
+    # model_regr = load_model('models/yield_RF') # regression Random Forest model
+    # model_classif = load_model('models/crop_RF') # classification Random Forest model
 
     # read JSON files with encoder and decoder
     with open('outputs/encoder_area.json', 'r') as f:
