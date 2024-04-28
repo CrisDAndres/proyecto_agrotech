@@ -56,21 +56,9 @@ page = option_menu(None, ["Intro", "Crops", "Pesticides", "Fertilizers", "Predic
 
 # read files from google drive
 df_url = 'https://drive.google.com/uc?id=1R1fslBGYK-Jqnb4sjARC5qCof85_MxYy'
-pest_df_url = 'https://drive.google.com/uc?id=1kvYkeQ3aDCkT2DX8OwlcPrWlOZRNY8S8'
-pest_url = 'https://drive.google.com/uc?id=1Xz4M1IUWEUkJdoOU70rgPgFCROIqTPKe'
-
-# df = 'df_preprocessed.csv'
-# pest_df = 'pest_preprocessed.csv'
-# pest = 'pest_crops.csv'
-
-# gdown.download(df_url, df, quiet=True)
-# gdown.download(pest_df_url, pest_df, quiet=True)
-# gdown.download(pest_url, pest, quiet=True)
 
 # read data
-df = pd.read_csv(df_url)
-pest_df = pd.read_csv(pest_df_url)
-pest = pd.read_csv(pest_url)   
+df = pd.read_csv(df_url)   
 
 # define color palette
 agro = ['#b2cb91','#9bc27e','#7fa465','#668f4f','#4e6f43','#59533e','#bf9000','#ffd966','#ffe599']
@@ -227,10 +215,12 @@ elif page == "Pesticides":
    
         # question 1
         st.markdown("<div style='font-size: 24px;'><strong>Has the use of pesticides increased in the last 15 years?</strong></div>", unsafe_allow_html=True)
-        pestbyyear = pest.groupby('Year')['agricultural_use_tonnes'].mean()
-        fig = go.Figure(data=go.Scatter(x=pestbyyear.index, y=pestbyyear.values, line=dict(color=agro[3])))
-        fig.update_layout(xaxis_title='Year', yaxis_title='Pesticides use (tonnes)', title='Average pesticides use per Year',width=800, height=400,xaxis=dict(tickmode='linear', dtick=1),title_x=0.35) 
-        st.plotly_chart(fig) 
+        # Open html file with the information of the maps generated with folium in read mode.
+        HtmlFile = open("html/pesticides1.html", 'r', encoding='utf-8')
+        # Read and load into source_code variable
+        source_code = HtmlFile.read() 
+        # view the content on streamlit
+        components.html(source_code, height = 600)
 
         # question 2
         st.markdown("<div style='font-size: 24px;'><strong>Does the use of pesticides affect crop yield?</strong></div>", unsafe_allow_html=True)
@@ -239,40 +229,19 @@ elif page == "Pesticides":
 
         # question 3 
         st.markdown("<div style='font-size: 24px;'><strong>What is the most commonly used type of pesticide?</strong></div>", unsafe_allow_html=True)
-        pest_total_area = pest_df.groupby(['Area','pesticides_type'])['agricultural_use_tonnes'].mean().reset_index()     
-        new_palette = ['#BDF08D', '#1D761D','#C0A45E', '#764E1D', '#F5F78E', '#F7CC8E']
-        fig = px.pie(pest_total_area, values='agricultural_use_tonnes', names='pesticides_type',color_discrete_sequence=new_palette,labels={'agricultural_use_tonnes': 'Use of pesticides (tonnes)', 'pesticides_type': 'Pesticide type'})
-        fig.update_layout(
-            template="plotly_white",
-            title="Average pesticides use by type",
-            title_x=0.35,
-            width=800, height=500,
-            legend={
-                'x': 1,  
-                'y': 0.5})
-        fig.update_traces(
-            textinfo='label+percent',
-            textfont_size=12,
-            text=pest_total_area['pesticides_type'],
-            marker=dict(line=dict(color='black', width=0.5))
-        )
-        st.plotly_chart(fig)  
+        HtmlFile = open("html/pesticides2.html", 'r', encoding='utf-8')
+        # Read and load into source_code variable
+        source_code = HtmlFile.read() 
+        # view the content on streamlit
+        components.html(source_code, height = 600)
 
         # question 4
         st.markdown("<div style='font-size: 24px;'><strong>Which are the top 50 countries with the highest levels of pesticide use in tonnes?</strong></div>", unsafe_allow_html=True)
-        pest_total_area_sorted = pest_total_area.sort_values(by='agricultural_use_tonnes', ascending=False)
-        top50 = pest_total_area_sorted.head(50)
-        top50['Area'].replace('TÃ¼rkiye','Turkey',inplace=True)
-        fig = px.bar(
-            top50,
-            y='Area',
-            x='agricultural_use_tonnes',
-            color='Area',  
-            color_discrete_sequence=agro,
-            labels={'agricultural_use_tonnes': 'Use of pesticides (tonnes)', 'pesticides_type': 'Pesticide type'}
-        )
-        fig.update_layout(title='top50 countries using pesticides',title_x=0.35,yaxis={'categoryorder':'total ascending'},width=800, height=600,showlegend=False)
-        st.plotly_chart(fig)
+        HtmlFile = open("html/pesticides3.html", 'r', encoding='utf-8')
+        # Read and load into source_code variable
+        source_code = HtmlFile.read() 
+        # view the content on streamlit
+        components.html(source_code, height = 600)
     
 # PAGE 4-------------------------------------
 elif page == "Fertilizers": 
@@ -294,15 +263,15 @@ elif page == "Predictions":
     url1 = "https://drive.google.com/uc?id=1TfydDkRqT2zJINmXc6RvrG7HOEuxkZgG"
     url2 = "https://drive.google.com/uc?id=1jRCQOX5_n6-Z-KtTZaCaDg-HNIneG6wN"
     
-    # model_classif = "crop_RF.pkl"
-    # model_regr = "yield_RF.pkl"
+    model_classif = "crop_RF.pkl"
+    model_regr = "yield_RF.pkl"
     
-    # gdown.download(url1, model_classif, quiet=True) # classification Random Forest model
-    # gdown.download(url2, model_regr, quiet=True) # regression Random Forest model
+    gdown.download(url1, model_classif, quiet=True) 
+    gdown.download(url2, model_regr, quiet=True) 
     
     # upload models
-    model_classif = load(url1) # classification Random Forest model
-    model_regr = load(url2) # regression Random Forest model
+    model_classif = load(model_classif) # classification Random Forest model
+    model_regr = load(model_regr) # regression Random Forest model
     
     # upload scalers
     scaler_classif = load('scaler_classif.pkl') # classification model scaler
