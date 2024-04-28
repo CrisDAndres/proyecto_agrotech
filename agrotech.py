@@ -310,8 +310,8 @@ elif page == "Predictions":
     url1 = "https://drive.google.com/uc?id=1TfydDkRqT2zJINmXc6RvrG7HOEuxkZgG"
     url2 = "https://drive.google.com/uc?id=1jRCQOX5_n6-Z-KtTZaCaDg-HNIneG6wN"
     
-    model_classif = "crop_RF.pkl"
-    model_regr = "yield_RF.pkl"
+    model_classif = "crop_RF"
+    model_regr = "yield_RF"
 
     gdown.download(url1, model_classif,quiet=True) # classification Random Forest model
     gdown.download(url2, model_regr,quiet=True) # regression Random Forest model
@@ -320,9 +320,9 @@ elif page == "Predictions":
     model_classif = load_model(model_classif)
     model_regr = load_model(model_regr)
     
-    # upload scalers
-    scaler_classif = load('scaler_classif.pkl') # classification model scaler
-    scaler_regr = load('scaler_regr.pkl') # regression model scaler
+    # # upload scalers
+    # scaler_classif = load('scaler_classif.pkl') # classification model scaler
+    # scaler_regr = load('scaler_regr.pkl') # regression model scaler
     
     ## upload files from local
     scaler_regr = load('outputs/scaler_regr.pkl') # regression model scaler
