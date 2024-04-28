@@ -41,7 +41,7 @@ The project consists of the following files:
     - Exploratory data analysis (EDA), including visualisation of interactive maps and other graphics.
     - Implementation of machine learning models for the prediction of the best crop (classification model) and crop yields (regression model).
 
-- **Streamlit application**: An interactive application has been developed using Streamlit, which allows exploration and visualisation of the analysed data. It is deployed at (https://agrotechproject00.streamlit.app/). <font color='red'>**Note:**</font> make sure the app has finished running before exploring it!!
+**Streamlit application**: An interactive application has been developed using Streamlit, which allows exploration and visualisation of the analysed data. It is deployed at (https://agrotechproject00.streamlit.app/). <font color='red'>**Note:**</font> make sure the app has finished running before exploring it!!
 
 - **PowerBI analysis**: A complementary analysis was performed using Power BI to create an interactive dashboard to explore and understand patterns and trends in the fertilizers data. This dashboard is located within the Streamlit application.
 
@@ -58,4 +58,6 @@ To run this project on your local machine, follow the steps below:
 
 
 
+"The project aims to use data analysis skills (extract data, preprocessing, exploratory data analysis, implementation of machine learning models) to develop a crop recommendation and crop yield prediction application.
 
+Project to analyze datasets to develop critical analysis skills. Tasks include data requirements identification, data processing, exploratory data analysis, Streamlit app development, Power BI integration and others.
