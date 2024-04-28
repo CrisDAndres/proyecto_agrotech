@@ -131,6 +131,10 @@ if page == "Home":
                     """
                     )
         st.write('---------------------')
+        st.write('<img src="https://emojicdn.elk.sh/👩🏻‍💻" width="50" height="50">', unsafe_allow_html=True)
+        st.markdown('<a style="font-size: 20px; color: blue;" href="www.linkedin.com/in/cristinadeandres"></i> LinkedIn profile</a>', unsafe_allow_html=True)
+
+    
 
 # PAGE 2-------------------------------------
 elif page == "Crops":
