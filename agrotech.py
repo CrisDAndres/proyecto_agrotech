@@ -295,7 +295,7 @@ elif page == "Fertilizers":
     # Power BI panel HTML code centered
     html_code = """
     <div style="display: flex; justify-content: center;">
-        <iframe title="proyecto_agrotech" width="1140" height="541.25" src="https://app.powerbi.com/reportEmbed?reportId=d5e9d64d-7a09-4db0-8444-5725a56b2cd4&autoAuth=true&ctid=8aebddb6-3418-43a1-a255-b964186ecc64" frameborder="0" allowFullScreen="true"></iframe>
+    <iframe title="proyecto_agrotech" width="600" height="373.5" src="https://app.powerbi.com/view?r=eyJrIjoiZThkOTUxOTktYjNmNC00MmZlLWFlMGQtYWVkYmE2ZTRiODAzIiwidCI6IjhhZWJkZGI2LTM0MTgtNDNhMS1hMjU1LWI5NjQxODZlY2M2NCIsImMiOjl9" frameborder="0" allowFullScreen="true"></iframe>
     </div>
     """  
     # Insert HTML code 
