@@ -26,8 +26,9 @@ st.set_page_config(
 )
 
 # # ---------------------TITLE & LOGO----------------------#
+
 logo = 'img/logo.png'
-# Agregar el logo de la empresa al lado del título
+# Add logo next to the title
 st.markdown(
     f"""
     <div style="display: flex; align-items: center;">
@@ -66,7 +67,7 @@ gdown.download(df_url, df, quiet=True)
 gdown.download(pest_df_url, pest_df, quiet=True)
 gdown.download(pest_url, pest, quiet=True)
 
-# Leer datos
+# read data
 df = pd.read_csv(df)
 pest_df = pd.read_csv(pest_df)
 pest = pd.read_csv(pest)   
@@ -104,16 +105,16 @@ elif page == "Crops":
     col1, col2 = st.columns(2)
     with col1:
         st.markdown("### Let's explore crops:")
-        # Crear un selector de área en el mapa
+        # Create a country selector on the map
         selected_area = st.selectbox('🌍 Select country or type it in:', ['All Countries'] + list(df['Area'].unique()))
-        # Si se selecciona "All Countries", mostrar todos los cultivos sin filtrar por país
+        # If "All Countries" is selected, display all crops without filtering by country
         if selected_area == 'All Countries':
             selected_crops = df['Crop'].unique()
-            # Crear un segundo selector para ordenar los cultivos
+            # Create a second selector to sort the crops
             order_by = st.selectbox('🌾Order crops by:', ['Area Harvested', 'Production', 'Yield'])
-            # Crea la checkbox para seleccionar el orden
+            # Create the checkbox to select the order
             ascending_order = st.checkbox("Ascending order", False)
-            # Ordenar los cultivos en base a la opción seleccionada
+            # Sort crops based on the selected option
             if order_by == 'Area Harvested':
                 if ascending_order:
                     sorted_crops = df.groupby('Crop')['area_harvested_ha'].mean().sort_values(ascending=True).round(2)
@@ -131,13 +132,13 @@ elif page == "Crops":
                     sorted_crops = df.groupby('Crop')['yield_hg/ha'].mean().sort_values(ascending=False).round(2)
             
         else:
-        # Filtrar los datos de los cultivos por el área seleccionada
+        # Filter crop data by selected area
             selected_crops = df[df['Area'] == selected_area]['Crop'].unique()
-            # Crear un segundo selector para ordenar los cultivos
+            # Create a second selector to sort the crops
             order_by = st.selectbox('🌾Order crops by:', ['Area Harvested', 'Production', 'Yield'])
-            # Crea la checkbox para seleccionar el orden
+            # Create a second selector to sort the crops
             ascending_order = st.checkbox("Ascending order", False)
-            # Ordenar los cultivos en base a la opción seleccionada
+            # Sort crops based on the selected option
             if order_by == 'Area Harvested':
                 if ascending_order:
                     sorted_crops = df[df['Area'] == selected_area].groupby('Crop')['area_harvested_ha'].mean().sort_values(ascending=True).round(2)
@@ -156,14 +157,14 @@ elif page == "Crops":
                 else:
                     sorted_crops = df[df['Area'] == selected_area].groupby('Crop')['yield_hg/ha'].mean().sort_values(ascending=False).round(2)
             
-        # Mostrar los cultivos ordenados
+        # Show crops in order
         st.write('Crops in', selected_area, 'ordered by average', order_by, 'between 2010 and 2022:')
         st.write(sorted_crops)
 
     with col2:
-        # Interactive maps
+        # ---Interactive maps
         st.markdown('### Interactive maps')
-        # Selector de radio para elegir entre las opciones
+        
         interactive_maps = st.checkbox("Show interactive maps", False)
         if interactive_maps:
                 
@@ -173,25 +174,26 @@ elif page == "Crops":
                         - **Average yield**
                         - **Average annual rainfall** around the globe:
                         """)
-            # Abrir archivo html con la información de los mapas generados con folium en modo lectura
+            # Open html file with the information of the maps generated with folium in read mode.
             HtmlFile = open("html/agromap.html", 'r', encoding='utf-8')
-            # Leer y cargar en la variable source_code
+            # Read and load into source_code variable
             source_code = HtmlFile.read() 
             print(source_code)
-            # visualizar el contenido en streamlit
+            # view the content on streamlit
             components.html(source_code, height = 600)
-        # Correlation
+        
+        # ---Correlation
         st.markdown('### Correlation')
-        # Selector de radio para elegir entre las opciones
+        
         correlation = st.checkbox("Show correlation", False)
         if correlation:
-            # Muestra una imagen desde un archivo local
+            # Display an image from a local file
             st.image("img/corr.png") 
             st.markdown('Correlation between variables:')
 
-        # Data over time
+        # ---Data over time
         st.markdown('### Data over time')
-        # Selector de radio para elegir entre las opciones
+        
         time = st.checkbox("Show data VS time", False)
         if time:
             # define variables
@@ -199,7 +201,7 @@ elif page == "Crops":
             productionbyyear = df.groupby('Year')['production_tonnes'].mean() 
             yieldbyyear = df.groupby('Year')['yield_hg/ha'].mean() 
             
-            # Crear la selectbox para elegir entre las opciones
+            # Create the selectbox to choose from the options
             selected_option_time = st.selectbox('Select data:', ['Area harvested VS time', 'Production VS time', 'Yield VS time'])
             
             if selected_option_time =='Area harvested VS time':
@@ -217,6 +219,7 @@ elif page == "Crops":
                 fig = go.Figure(data=go.Scatter(x=yieldbyyear.index, y=yieldbyyear.values, line=dict(color='#9bc27e')))
                 fig.update_layout(xaxis_title='Year', yaxis_title='Average Yield (hg/ha)', title='Average Yield per Year',width=600, height=400,xaxis=dict(tickmode='linear', dtick=1),title_x=0.35) 
                 st.plotly_chart(fig)
+
 # PAGE 3-------------------------------------
 elif page == "Pesticides": 
     col1, col2 = st.columns(2)
@@ -268,7 +271,6 @@ elif page == "Pesticides":
             color_discrete_sequence=agro,
             labels={'agricultural_use_tonnes': 'Use of pesticides (tonnes)', 'pesticides_type': 'Pesticide type'}
         )
-        # Especificar el orden de las categorías en el eje y
         fig.update_layout(title='top50 countries using pesticides',title_x=0.35,yaxis={'categoryorder':'total ascending'},width=800, height=600,showlegend=False)
         st.plotly_chart(fig)
     
@@ -283,36 +285,50 @@ elif page == "Fertilizers":
     """  
     # Insert HTML code 
     components.html(html_code, height = 1000)
+
 # PAGE 5-------------------------------------
 elif page == "Predictions":
     st.markdown("<p style='color: darkgreen; font-size: 36px; text-align: center;'>CropWise 🌱</p>", unsafe_allow_html=True)
     st.markdown("<p style='color: darkgreen; font-size: 24px; text-align: center;'>A crop recommendation platform using machine learning</p>", unsafe_allow_html=True)
+    # download models files from google drive
+    url1 = "https://drive.google.com/uc?id=1TfydDkRqT2zJINmXc6RvrG7HOEuxkZgG/view?usp=sharing"
+    url2 = "https://drive.google.com/uc?id=1jRCQOX5_n6-Z-KtTZaCaDg-HNIneG6wN/view?usp=drive_link"
+    
+    model_classif = "crop_RF.pkl"
+    model_regr = "yield_RF.pkl"
+    
+    gdown.download(url1, model_classif, quiet=True) # classification Random Forest model
+    gdown.download(url2, model_regr, quiet=True) # regression Random Forest model
+    
+    # upload models
+    model_classif = load(model_classif)
+    model_regr = load(model_regr)
+    
+    # upload scalers
+    scaler_classif = load('scaler_classif.pkl') # classification model scaler
+    scaler_regr = load('scaler_regr.pkl') # regression model scaler
 
-    ## -- Carga de archivos 
-    scaler_regr = load('scaler_regr.pkl') # scaler del modelo de regresion
-    scaler_classif = load('scaler_classif.pkl') # scaler del modelo de clasificacion
-    model_regr = load_model('models/yield_RF') #Le cargamos el modelo (de regresion) que he entrenado con rf
-    model_classif = load_model('models/crop_RF') #Le cargamos el modelo (de clasificacion) que he entrenado con rf
-
-    # # read JSON file with countries list
+    # read JSON files with encoder and decoder
     with open('json/encoder_area.json', 'r') as f:
         encoder_area = json.load(f)
-    # read JSON file with crop list
+    
     with open('json/encoder_crop.json', 'r') as f:
         encoder_crop = json.load(f)
-    # # read JSON file with countries list
+
     with open('json/decoder_area.json', 'r') as f:
         decoder_area = json.load(f)
-    # read JSON file with crop list
+
     with open('json/decoder_crop.json', 'r') as f:
         decoder_crop = json.load(f)
-# # read JSON file with countries list
+        
+# read JSON file with countries list
     with open('json/countries_final.json', 'r') as f:
         countries = json.load(f)
 # read JSON file with crop list
     with open('json/crops.json', 'r') as f:
         crops = json.load(f)
-     # ---------------------TABS (pestañas)----------------------#
+        
+     # ---------------------TABS----------------------#
     tab1, tab2 = st.tabs(
         ['Best crop predictor','Yield predictor']) 
     
@@ -320,8 +336,7 @@ elif page == "Predictions":
 
     with tab1:
         
-
-        # definir rangos
+        # define ranges
         area_min = 1.0
         area_max = 3000000.0  
         prec_min = 0.05
@@ -329,9 +344,9 @@ elif page == "Predictions":
         temp_min = - 5.0
         temp_max = 30.0
         
-        with st.form("best_crop_prediction_form"): #Metemos todas las variables que hemos usado en el entrenamiento, en el mismo orden
+        with st.form("best_crop_prediction_form"): 
             country = st.selectbox('Country:', countries)
-            # creamos sliders para seleccionar rangos
+            # create sliders to select ranges
             area_harvested = st.slider('Harvested area (ha):', area_min, area_max)
             prec = st.slider('Rainfall per year (mm):', prec_min, prec_max)
             temp = st.slider('Temperature (ºC):', temp_min, temp_max)
@@ -339,32 +354,29 @@ elif page == "Predictions":
 
             if submit_button:
                 input_data = pd.DataFrame([[country,area_harvested, prec, temp]],
-                                        columns=['Area','area_harvested_ha', 'avg_rainfall_mm_year', 'avg_temp_ºC']) # mismo orden que entrenamiento
-            # Mismo orden que en el notebook 
+                                        columns=['Area','area_harvested_ha', 'avg_rainfall_mm_year', 'avg_temp_ºC']) # Same order as training
 
-            # 1- Primero codifico a números lo que ingresa el usuario utilizando el json de mapeo
+            # 1- First I encode what the user enters into numbers using the mapping json.
                 input_data['Area'] = input_data['Area'].replace(encoder_area)
 
-            # 2 - Después normalizo los datos de entrada
+            # 2 - Normalise the input data
                 input_data_scaled = scaler_classif.transform(input_data)
     
-
-            # 3 - Realiza la predicción con el modelo
+            # 3 - Make the prediction with the model
         
                 prediction = model_classif.predict(input_data_scaled)
                 
-              
-            # 4 - Por último decodifico los barrios utilizando el diccionario de mapeo inverso
+            # 4 - Decode countries using the reverse mapping dictionary.
                 input_data['Area'] = input_data['Area'].replace(decoder_area)
 
-                # Asegurémonos de acceder al nombre correcto de la columna de predicciones
-                predicted_crop = prediction[-1]  # Generalmente, la predicción está en la última columna
+                
+                predicted_crop = prediction[-1]  # Generally, the prediction is in the last column
                 st.write(f"<p style='font-size: 24px; font-weight: bold;'>The best crop based on the selected variables is: {predicted_crop}</p>", unsafe_allow_html=True)
 
     # PREDICTOR 2 ---------------------------------------------------------   
         
     with tab2:
-        # definir rangos
+        # define ranges
         area_min = 1.0
         area_max = 3000000.0 
         prod_min = 0.06
@@ -372,10 +384,10 @@ elif page == "Predictions":
         temp_min = - 5.0
         temp_max = 30.0
         
-        with st.form("yield_prediction_form"): #Metemos todas las variables que hemos usado en el entrenamiento, en el mismo orden
-            # country = st.selectbox('Country:', countries)
+        with st.form("yield_prediction_form"): 
+            
             crop = st.selectbox('Crop:', crops)
-            # creamos sliders para seleccionar rangos
+            # create sliders to select ranges
             area_harvested = st.slider('Harvested area (ha):', area_min, area_max,area_min)
             production = st.slider('Production (tonnes):', prod_min, prod_max,prod_min)
             temp = st.slider('Temperature (ºC):', temp_min, temp_max,temp_min)
@@ -383,24 +395,22 @@ elif page == "Predictions":
 
             if submit_button:
                 input_data = pd.DataFrame([[crop,area_harvested, production, temp]],
-                                        columns=['Crop','area_harvested_ha', 'production_tonnes', 'avg_temp_ºC']) # mismo orden que entrenamiento
-            # Mismo orden que en el notebook 
+                                        columns=['Crop','area_harvested_ha', 'production_tonnes', 'avg_temp_ºC']) # Same order as training
 
-            # 1- Primero codifico a números lo que ingresa el usuario utilizando el json de mapeo
+            # 1- First I encode what the user enters into numbers using the mapping json.
                 input_data['Crop'] = input_data['Crop'].replace(encoder_crop)
 
-            # 2 - Después normalizo los datos de entrada
+            # 2 - Normalise the input data
                 input_data_scaled = scaler_regr.transform(input_data)
 
 
-            # 3 - Realiza la predicción con el modelo
+            # 3 - Make the prediction with the model
         
                 prediction = model_regr.predict(input_data_scaled)
                 
-              
-            # 4 - Por último decodifico los barrios utilizando el diccionario de mapeo inverso
+            # 4 - Decode countries using the reverse mapping dictionary.
                 input_data['Crop'] = input_data['Crop'].replace(decoder_crop)
 
-                # Asegurémonos de acceder al nombre correcto de la columna de predicciones
-                predicted_yield = prediction[-1]  # Generalmente, la predicción está en la última columna
+                
+                predicted_yield = prediction[-1]  
                 st.write(f"<p style='font-size: 24px; font-weight: bold;'>The prediction of the crop yield based on the selected variables is: {predicted_yield:.2f} hg/ha</p>", unsafe_allow_html=True)
