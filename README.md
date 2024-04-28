@@ -1,5 +1,9 @@
 # Analyzing Global Crop Production and Yield Trends: An Agrotechnological Perspective 🌾
 
+<p align="center">
+  <img src="img/header_readme.png" alt="Header">
+</p>
+
 ## Project Objectives
 This project will analyse data on different crops worldwide (production, area harvested, yield), as well as data on pesticide use, fertiliser use, average annual rainfall and average temperature in all countries of the world.
 
