@@ -48,7 +48,7 @@ The project consists of the following files:
 ## Characteristics of the project
 
 - **Code**: The code used is available in the Jupyter notebooks and includes the following sections:
-- 
+  
     - Library loading and reading of the different datasets.
     - Datasets information and preprocessing.
     - Exploratory data analysis (EDA), including visualisation of interactive maps and other graphics.
