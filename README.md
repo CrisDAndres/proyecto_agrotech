@@ -4,6 +4,9 @@
   <img src="img/header_readme.png" alt="Header">
 </p>
 
+The agricultural sector faces many challenges that hinder its efficiency and profitability. The sector and our future are challenged by the world's growing population and factors such as climate change.
+**Agricultural technology** seeks to apply technology to crops to deliver **greater crop efficiency and productivity and better management of natural resources**. 
+
 ## Project Objectives
 This project will analyse data on different crops worldwide (production, area harvested, yield), as well as data on pesticide use, fertiliser use, average annual rainfall and average temperature in all countries of the world.
 
@@ -68,3 +71,5 @@ To run this project on your local machine, follow the steps below:
 3. Install the necessary dependencies by running pip install -r requirements.txt.
 4. Run the ``agrotech.py`` file and make sure you have downloaded the **Data**, **models**, **img**, **html** and **outputs** folders in the same environment. Next, open the terminal in the app directory and run the following command: ``streamlit run agrotech.py``. This will open the web browser http://localhost:8501/ which will take you to the app.
 
+## Contact 📧
+If you have any questions or suggestions about this project, please feel free to contact me. You can get in touch with me through my social media channels.
