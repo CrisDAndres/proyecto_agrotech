@@ -10,8 +10,11 @@ This project will analyse data on different crops worldwide (production, area ha
 The aim of the project is to use data analysis techniques to extract information and visualise the different variables, and to develop a crop recommendation application using machine learning techniques.
 
 <p align="center">
-  <b>App available here!</b><br>
-  <a href="(https://agrotechproject00.streamlit.app/)">Link</a>
+  <b>Streamlit App available here!</b><br>
+  <a href="https://agrotechproject00.streamlit.app/">App</a>
+</p>
+<p align="center">
+  📱
 </p>
 
 *Data source:*
