@@ -95,7 +95,7 @@ if page == "Home":
             The agricultural sector faces multiple challenges that hinder its efficiency and profitability.
             <strong>Agricultural technology</strong> aims to harness the power of machine learning algorithms to predict crop requirements and parameters,
             providing farmers with personalized crop recommendations based on various variables determined by their specific circumstances,
-            such as <strong>climatic conditions</strong> or <strong>terrain characteristics</strong>.
+            such as <strong>climatic conditions</strong> or <strong>soil characteristics</strong>.
             </p>
             """,
             unsafe_allow_html=True)
@@ -116,8 +116,9 @@ if page == "Home":
         st.markdown('### About the project')
         st.markdown("""
             <p style='font-size:20px; text-align: justify;'>
-                For the data analysis of this project, several data sources were used, and data analysis techniques such as **data extraction, pre-processing,
-                exploratory data analysis and the implementation of machine learning models** were applied to create a crop prediction platform.
+                For the data analysis of this project, several data sources were used, and data analysis techniques such as 
+                <b>data extraction, pre-processing, exploratory data analysis and the implementation of machine learning models</b> 
+                were applied to create a crop prediction platform.
             </p>
             """,
             unsafe_allow_html=True)
@@ -208,7 +209,7 @@ elif page == "Crops":
                         Here you can explore between 3 different layers:
                         - **Average area harvested**
                         - **Average yield**
-                        - **Average annual rainfall** around the globe:
+                        - **Average annual rainfall**:
                         """)
             # Open html file with the information of the maps generated with folium in read mode.
             HtmlFile = open("html/agromap.html", 'r', encoding='utf-8')
@@ -224,9 +225,13 @@ elif page == "Crops":
         correlation = st.checkbox("Show correlation", False)
         if correlation:
             # Display an image from a local file
-            st.image("img/corr.png") 
             st.markdown('Correlation between variables:')
-
+            st.image("img/corr.png") 
+            st.markdown("""
+                        Some of the conclusions are:
+                        - **Harvested area** has a high positive correlation with **crop production**. The larger the harvested area, the higher the yield.
+                        - There is a moderate negative correlation between **yield** and **harvested area**, suggesting that the higher the harvested area, the lower the yield.
+                        - The **average temperature** of the country follows a moderate negative correlation with **yield**. The higher the temperature, the lower the yield of some crops.""")
         # ---Data over time
         st.markdown('### Data over time')
         
@@ -260,14 +265,15 @@ elif page == "Crops":
 elif page == "Pesticides": 
    
     # question 1
-    st.markdown("<div style='font-size: 24px;'><strong>Has the use of pesticides increased in the last 15 years?</strong></div>", unsafe_allow_html=True)
+    st.markdown("<div style='font-size: 24px;'><strong>Has the use of pesticides increased in the last 11 years?</strong></div>", unsafe_allow_html=True)
     # Open html file with the information of the maps generated with folium in read mode.
     HtmlFile = open("html/pesticides1.html", 'r', encoding='utf-8')
     # Read and load into source_code variable
     source_code = HtmlFile.read() 
     # view the content on streamlit
-    components.html(source_code, height = 600)
-
+    components.html(source_code, height = 400)
+    st.markdown('**The use of pesticides has increased in recent decades due to the need for higher crop yields and increased food production.**')
+    
     # question 2
     st.markdown("<div style='font-size: 24px;'><strong>Does the use of pesticides affect crop yield?</strong></div>", unsafe_allow_html=True)
     st.image("img/corr_pest.png",width=800) 
@@ -279,8 +285,9 @@ elif page == "Pesticides":
     # Read and load into source_code variable
     source_code = HtmlFile.read() 
     # view the content on streamlit
-    components.html(source_code, height = 600)
-
+    components.html(source_code, height = 530)
+    st.markdown('**Herbicides**, used to control weeds and other unwanted plants, are the most commonly used type of pesticide, followed by **insecticides**, which act against insects, and **fungicides and bactericides**, which control fungi and bacteria that harm crops.')
+    
     # question 4
     st.markdown("<div style='font-size: 24px;'><strong>Which are the top 50 countries with the highest levels of pesticide use in tonnes?</strong></div>", unsafe_allow_html=True)
     HtmlFile = open("html/pesticides3.html", 'r', encoding='utf-8')
@@ -306,29 +313,26 @@ elif page == "Predictions":
     st.markdown("<p style='color: darkgreen; font-size: 36px; text-align: center;'>CropWise 🌱</p>", unsafe_allow_html=True)
     st.markdown("<p style='color: darkgreen; font-size: 24px; text-align: center;'>A crop recommendation platform using machine learning</p>", unsafe_allow_html=True)
     
-    # # download models files from google drive
-    # url1 = "https://drive.google.com/uc?id=1TfydDkRqT2zJINmXc6RvrG7HOEuxkZgG"
-    # url2 = "https://drive.google.com/uc?id=1jRCQOX5_n6-Z-KtTZaCaDg-HNIneG6wN"
+    # download models files from google drive
+    url1 = "https://drive.google.com/uc?id=1TfydDkRqT2zJINmXc6RvrG7HOEuxkZgG"
+    url2 = "https://drive.google.com/uc?id=1jRCQOX5_n6-Z-KtTZaCaDg-HNIneG6wN"
     
-    # model_classif = "crop_RF.pkl"
-    # model_regr = "yield_RF.pkl"
-
-    # gdown.download(url1, model_classif,quiet=True) # classification Random Forest model
-    # gdown.download(url2, model_regr,quiet=True) # regression Random Forest model
+    gdown.download(url1, 'crop_RF.pkl',quiet=True) # classification Random Forest model
+    gdown.download(url2, 'yield_RF.pkl',quiet=True) # regression Random Forest model
     
-    # # upload models
-    # model_classif = load_model('crop_RF')
-    # model_regr = load_model('yield_RF')
-    
-    # # upload scalers
-    # scaler_classif = load('scaler_classif.pkl') # classification model scaler
-    # scaler_regr = load('scaler_regr.pkl') # regression model scaler
+    # upload models
+    model_classif = load('./crop_RF.pkl') # classification Random Forest model
+    model_regr = load('./yield_RF.pkl') # regression Random Forest model
     
     ## upload files from local
     scaler_regr = load('outputs/scaler_regr.pkl') # regression model scaler
     scaler_classif = load('outputs/scaler_classif.pkl') # classification model scaler
-    model_regr = load_model('models/yield_RF') # regression Random Forest model
-    model_classif = load_model('models/crop_RF') # classification Random Forest model
+    
+    # ## upload files from local
+    # scaler_regr = load('outputs/scaler_regr.pkl') # regression model scaler
+    # scaler_classif = load('outputs/scaler_classif.pkl') # classification model scaler
+    # model_regr = load_model('models/yield_RF') # regression Random Forest model
+    # model_classif = load_model('models/crop_RF') # classification Random Forest model
 
     # read JSON files with encoder and decoder
     with open('outputs/encoder_area.json', 'r') as f:
