@@ -71,5 +71,14 @@ To run this project on your local machine, follow the steps below:
 3. Install the necessary dependencies by running pip install -r requirements.txt.
 4. Run the ``agrotech.py`` file and make sure you have downloaded the **Data**, **models**, **img**, **html** and **outputs** folders in the same environment. Next, open the terminal in the app directory and run the following command: ``streamlit run agrotech.py``. This will open the web browser http://localhost:8501/ which will take you to the app.
 
+---
+
+## Prediction demo 📹
+<video width="640" height="360" controls>
+  <source src="https://github.com/CrisDAndres/proyecto_agrotech/assets/132938003/ae1c2936-3791-4f69-952e-4a85cf363ea2" type="video/mp4">
+  Tu navegador no soporta el elemento de video.
+</video>
+<!-- https://github.com/CrisDAndres/proyecto_agrotech/assets/132938003/ae1c2936-3791-4f69-952e-4a85cf363ea2 -->
+---
 ## Contact 📧
 If you have any questions or suggestions about this project, please feel free to contact me. You can get in touch with me through my social media channels.
