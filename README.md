@@ -48,12 +48,13 @@ The project consists of the following files:
 ## Characteristics of the project
 
 - **Code**: The code used is available in the Jupyter notebooks and includes the following sections:
+- 
     - Library loading and reading of the different datasets.
     - Datasets information and preprocessing.
     - Exploratory data analysis (EDA), including visualisation of interactive maps and other graphics.
     - Implementation of machine learning models for the prediction of the best crop (classification model) and crop yields (regression model).
 
-**Streamlit application**: An interactive application has been developed using Streamlit, which allows exploration and visualisation of the analysed data. It is deployed at https://agrotechproject00.streamlit.app/. **Note👁️: make sure the app has finished running before exploring it!!**
+- **Streamlit application**: An interactive application has been developed using Streamlit, which allows exploration and visualisation of the analysed data. It is deployed at https://agrotechproject00.streamlit.app/. **Note👁️: make sure the app has finished running before exploring it!!**
 
 - **PowerBI analysis**: A complementary analysis was performed using Power BI to create an interactive dashboard to explore and understand patterns and trends in the fertilizers data. This dashboard is located within the Streamlit application.
 
