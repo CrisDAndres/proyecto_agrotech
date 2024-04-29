@@ -324,7 +324,7 @@ elif page == "Predictions":
     model_classif = load('./crop_RF.pkl') # classification Random Forest model
     model_regr = load('./yield_RF.pkl') # regression Random Forest model
     
-    ## upload files from local
+    ## upload scalers
     scaler_regr = load('outputs/scaler_regr.pkl') # regression model scaler
     scaler_classif = load('outputs/scaler_classif.pkl') # classification model scaler
     
