@@ -317,8 +317,8 @@ elif page == "Predictions":
     url1 = "https://drive.google.com/uc?id=1TfydDkRqT2zJINmXc6RvrG7HOEuxkZgG"
     url2 = "https://drive.google.com/uc?id=1jRCQOX5_n6-Z-KtTZaCaDg-HNIneG6wN"
     
-    gdown.download(url1, 'crop_RF.pkl',quiet=True) # classification Random Forest model
-    gdown.download(url2, 'yield_RF.pkl',quiet=True) # regression Random Forest model
+    gdown.download(url1, "crop_RF.pkl",quiet=True) # classification Random Forest model
+    gdown.download(url2, "yield_RF.pkl",quiet=True) # regression Random Forest model
     
     # upload models
     model_classif = load('./crop_RF.pkl') # classification Random Forest model
