@@ -75,10 +75,6 @@ To run this project on your local machine, follow the steps below:
 
 ## Prediction demo 📹
 
-<video width="640" height="360" controls>
-  <source src="https://github.com/CrisDAndres/proyecto_agrotech/assets/132938003/ae1c2936-3791-4f69-952e-4a85cf363ea2" type="video/mp4">
-  Tu navegador no soporta el elemento de video.
-</video>
 <!-- https://github.com/CrisDAndres/proyecto_agrotech/assets/132938003/ae1c2936-3791-4f69-952e-4a85cf363ea2 -->
 
 ---
