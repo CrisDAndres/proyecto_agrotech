@@ -66,5 +66,5 @@ To run this project on your local machine, follow the steps below:
 1. Clone this repository to your local machine.
 2. Download the ``Data`` and ``models`` folders from Google Drive.
 3. Install the necessary dependencies by running pip install -r requirements.txt.
-4. Run the agrotech.py file and make sure you have downloaded the **Data**, **models**, **img**, **html** and **outputs** folders in the same environment. Next, open the terminal in the app directory and run the following command: ``streamlit run agrotech.py``.This will open the web browser http://localhost:8501/ which will take you to the app.
+4. Run the ``agrotech.py`` file and make sure you have downloaded the **Data**, **models**, **img**, **html** and **outputs** folders in the same environment. Next, open the terminal in the app directory and run the following command: ``streamlit run agrotech.py``. This will open the web browser http://localhost:8501/ which will take you to the app.
 
