@@ -39,7 +39,7 @@ The project consists of the following files:
 
 ## Characteristics of the project
 
-- **Code**: The code used is in the notebook proyecto_airbnb.ipynb and includes the following sections:
+- **Code**: The code used is available in the Jupyter notebooks and includes the following sections:
     - Library loading and reading of the different datasets.
     - Datasets information and preprocessing.
     - Exploratory data analysis (EDA), including visualisation of interactive maps and other graphics.
@@ -59,9 +59,3 @@ To run this project on your local machine, follow the steps below:
 3. Install the necessary dependencies by running pip install -r requirements.txt.
 4. Run the agrotech.py file and make sure you have downloaded the **Data**, **models**, **img**, **html** and **outputs** folders in the same environment. Next, open the terminal in the app directory and run the following command: ``streamlit run agrotech.py``.This will open the web browser http://localhost:8501/ which will take you to the app.
 
-
-
-
-"The project aims to use data analysis skills (extract data, preprocessing, exploratory data analysis, implementation of machine learning models) to develop a crop recommendation and crop yield prediction application.
-
-Project to analyze datasets to develop critical analysis skills. Tasks include data requirements identification, data processing, exploratory data analysis, Streamlit app development, Power BI integration and others.
