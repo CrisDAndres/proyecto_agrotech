@@ -46,16 +46,33 @@ The project consists of the following files:
 
 - ``/outputs/``: Folder containing various .json and .pkl files used in the development of the project.
 
+- ``/AzureML/``: Images of the classification pipeline, best model and metrics.
+
 ---
 
 ## Characteristics of the project
 
 - **Code**: The code used is available in the Jupyter notebooks and includes the following sections:
   
-    - Library loading and reading of the different datasets.
-    - Datasets information and preprocessing.
-    - Exploratory data analysis (EDA), including visualisation of interactive maps and other graphics.
-    - Implementation of machine learning models for the prediction of the best crop (classification model) and crop yields (regression model).
+    - Libraries loading and reading of datasets.
+    - **Preprocessing**
+        - Columns treatment.
+        - NaN values detection and treatment.
+        - Merging of datasets to complete information.
+    - **Exploratory data analysis (EDA)**
+        - Visualisation variables distribution.
+        - Spearman correlation heatmap.
+        - Interactive maps.
+    - Implementation of **machine learning models** to predict best crop (classification model) and crop yield (regression model).
+        - Outlier detection and treatment by interquartile range (IQR).
+        - Save clean files (.csv) for the machine learning training models (regression and classification).
+        - Data splitting using train_test_split() from scikit-learn.
+        - Data normalisation using ``StandardScaler()``.
+        - Training of different models:
+            - **Regression Modelling**: ``ElasticNet``, ``Stochastic Gradient Descent``, ``Random Forest``, ``Boosting Gradient Descent``, with Random Forest regression being the best model.
+            - **Classification Modelling**: ``Logistic`` model, ``KNN`` and ``Random Forest``.
+              *Note: Fast Machine Learning from PyCaret was used to help choose the best model*.
+            - **Real-time inference using Azure Automated Machine Learning (AutoML)**: AutoML was utilized to improve the classification model and enable faster predictions in the Streamlit app. Finally, this                   classification model was integrated into the app and is accessible only when the Azure hotspot is connected. Below, you can see a demo of how the predictions work.
 
 - **Streamlit application**: An interactive application has been developed using Streamlit, which allows exploration and visualisation of the analysed data. It is deployed at https://agrotechproject00.streamlit.app/. **Note👁️: make sure the app has finished running before exploring it!!**
 
