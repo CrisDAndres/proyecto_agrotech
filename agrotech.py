@@ -313,26 +313,26 @@ elif page == "Predictions":
     st.markdown("<p style='color: darkgreen; font-size: 36px; text-align: center;'>CropWise 🌱</p>", unsafe_allow_html=True)
     st.markdown("<p style='color: darkgreen; font-size: 24px; text-align: center;'>A crop recommendation platform using machine learning</p>", unsafe_allow_html=True)
     
-    # download models files from google drive
-    url1 = "https://drive.google.com/uc?id=1TfydDkRqT2zJINmXc6RvrG7HOEuxkZgG"
-    url2 = "https://drive.google.com/uc?id=1jRCQOX5_n6-Z-KtTZaCaDg-HNIneG6wN"
+    # # download models files from google drive
+    # url1 = "https://drive.google.com/uc?id=1TfydDkRqT2zJINmXc6RvrG7HOEuxkZgG"
+    # url2 = "https://drive.google.com/uc?id=1jRCQOX5_n6-Z-KtTZaCaDg-HNIneG6wN"
     
-    gdown.download(url1, "crop_RF.pkl",quiet=True) # classification Random Forest model
-    gdown.download(url2, "yield_RF.pkl",quiet=True) # regression Random Forest model
+    # gdown.download(url1, "crop_RF.pkl",quiet=True) # classification Random Forest model
+    # gdown.download(url2, "yield_RF.pkl",quiet=True) # regression Random Forest model
     
-    # upload models
-    model_classif = load('./crop_RF.pkl') # classification Random Forest model
-    model_regr = load('./yield_RF.pkl') # regression Random Forest model
+    # # upload models
+    # model_classif = load('./crop_RF.pkl') # classification Random Forest model
+    # model_regr = load('./yield_RF.pkl') # regression Random Forest model
     
-    ## upload scalers
-    scaler_regr = load('outputs/scaler_regr.pkl') # regression model scaler
-    scaler_classif = load('outputs/scaler_classif.pkl') # classification model scaler
-    
-    # ## upload files from local
+    # ## upload scalers
     # scaler_regr = load('outputs/scaler_regr.pkl') # regression model scaler
     # scaler_classif = load('outputs/scaler_classif.pkl') # classification model scaler
-    # model_regr = load_model('models/yield_RF') # regression Random Forest model
-    # model_classif = load_model('models/crop_RF') # classification Random Forest model
+    
+    ## upload files from local
+    scaler_regr = load('outputs/scaler_regr.pkl') # regression model scaler
+    scaler_classif = load('outputs/scaler_classif.pkl') # classification model scaler
+    model_regr = load_model('models/yield_RF') # regression Random Forest model
+    model_classif = load_model('models/crop_RF') # classification Random Forest model
 
     # read JSON files with encoder and decoder
     with open('outputs/encoder_area.json', 'r') as f:
@@ -358,7 +358,7 @@ elif page == "Predictions":
     tab1, tab2 = st.tabs(
         ['Best crop predictor','Yield predictor']) 
     
-    # PREDICTOR 1 ---------------------------------------------------------   
+    # PREDICTOR 1: CLASSIFICATION MODEL ---------------------------------------------------------   
 
     with tab1:
         
@@ -399,7 +399,7 @@ elif page == "Predictions":
                 predicted_crop = prediction[-1]  # Generally, the prediction is in the last column
                 st.write(f"<p style='font-size: 24px; font-weight: bold;'>The best crop based on the selected variables is: {predicted_crop}</p>", unsafe_allow_html=True)
 
-    # PREDICTOR 2 ---------------------------------------------------------   
+    # PREDICTOR 2: REGRESSION MODEL ---------------------------------------------------------   
         
     with tab2:
         # define ranges
