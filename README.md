@@ -19,6 +19,9 @@ The aim of the project is to use data analysis techniques to extract information
 <p align="center">
   📱
 </p>
+<p align="center">
+  <b>Predictions are not executed in the app deploy. A demo video is shown below to demonstrate how the prediction works. You can run the full application on the local host.</b><br>
+</p>
 
 *Data source:*
 
@@ -38,7 +41,9 @@ The project consists of the following files:
 
 - ``/notebooks/``: Folder containing different Jupyter Notebooks with all the code used to perform the data analysis (preprocessing, EDA, ML model evaluation) and explanations of each step.
 
-- ``agrotech.py`` : Python script for the Streamlit app.
+- ``agrotech.py`` : Python script for the full Streamlit app.
+
+- - ``agrotech_azureML.py`` : Python script for the prediction app implemented with AzureML.
 
 - ``/img/``: Folder containing images and graphics developed in the project.
 
@@ -73,7 +78,8 @@ The project consists of the following files:
             - **Classification Modelling**: ``Logistic`` model, ``KNN`` and ``Random Forest``. Random Forest was the best model.
 
               *Note: Fast Machine Learning from PyCaret was used to help choose the best model*.
-            - **Real-time inference using Azure Automated Machine Learning (AutoML)**: AutoML was utilized to improve the classification model and enable faster predictions in the Streamlit app. Finally, this                   classification model was integrated into the app and is accessible only when the Azure endpoint is connected. Below, you can see a demo of how the predictions work.
+            - **Real-time inference using Azure Automated Machine Learning (AutoML)**: AutoML was utilized to improve the classification model and enable faster predictions in the second Streamlit app   
+              (``agrotech_azureML.py``). 
 
 - **Streamlit application**: An interactive application has been developed using Streamlit, which allows exploration and visualisation of the analysed data. It is deployed at https://agrotechproject00.streamlit.app/. **Note👁️: make sure the app has finished running before exploring it!!**
 
