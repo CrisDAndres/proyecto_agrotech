@@ -78,8 +78,7 @@ The project consists of the following files:
             - **Classification Modelling**: ``Logistic`` model, ``KNN`` and ``Random Forest``. Random Forest was the best model.
 
               *Note: Fast Machine Learning from PyCaret was used to help choose the best model*.
-            - **Real-time inference using Azure Automated Machine Learning (AutoML)**: AutoML was utilized to improve the classification model and enable faster predictions in the second Streamlit app   
-              (``agrotech_azureML.py``). 
+            - **Real-time inference using Azure Automated Machine Learning (AutoML)**: AutoML was utilized to improve the classification model and enable faster predictions in the second Streamlit app   (``agrotech_azureML.py``). 
 
 - **Streamlit application**: An interactive application has been developed using Streamlit, which allows exploration and visualisation of the analysed data. It is deployed at https://agrotechproject00.streamlit.app/. **Note👁️: make sure the app has finished running before exploring it!!**
 
