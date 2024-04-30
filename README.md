@@ -70,7 +70,7 @@ The project consists of the following files:
         - Data normalisation using ``StandardScaler()``.
         - Training of different models:
             - **Regression Modelling**: ``ElasticNet``, ``Stochastic Gradient Descent``, ``Random Forest``, ``Boosting Gradient Descent``, with Random Forest regression being the best model.
-            - **Classification Modelling**: ``Logistic`` model, ``KNN`` and ``Random Forest``.
+            - **Classification Modelling**: ``Logistic`` model, ``KNN`` and ``Random Forest``. Random Forest was the best model.
 
               *Note: Fast Machine Learning from PyCaret was used to help choose the best model*.
             - **Real-time inference using Azure Automated Machine Learning (AutoML)**: AutoML was utilized to improve the classification model and enable faster predictions in the Streamlit app. Finally, this                   classification model was integrated into the app and is accessible only when the Azure endpoint is connected. Below, you can see a demo of how the predictions work.
