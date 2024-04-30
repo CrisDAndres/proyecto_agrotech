@@ -20,9 +20,11 @@ The aim of the project is to use data analysis techniques to extract information
   📱
 </p>
 <p align="center">
-  <b>Predictions are not executed in the app deploy. A demo video is shown below to demonstrate how the prediction works. You can run the full application on the local host.</b><br>
+  <b>NOTE: Predictions are not executed in the app deploy. A demo video is shown below to demonstrate how the prediction works. You can run the full application on the local host.</b><br>
 </p>
-
+<p align="center">
+  <font color="red"><b>NOTE: Predictions are not executed in the app deploy. A demo video is shown below to demonstrate how the prediction works. You can run the full application on the local host.</b></font><br>
+</p>
 *Data source:*
 
 - [*FAOSTAT: Food and Agriculture Organization of the United Nations*](https://www.fao.org/faostat/en/#release_calendar)
