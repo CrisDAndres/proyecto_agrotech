@@ -43,7 +43,7 @@ The project consists of the following files:
 
 - ``agrotech.py`` : Python script for the full Streamlit app.
 
-- - ``agrotech_azureML.py`` : Python script for the prediction app implemented with AzureML.
+- ``agrotech_azureML.py`` : Python script for the prediction app implemented with AzureML.
 
 - ``/img/``: Folder containing images and graphics developed in the project.
 
