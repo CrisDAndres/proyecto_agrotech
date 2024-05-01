@@ -387,7 +387,7 @@ elif page == "Predictions":
                 prediction = model_classif.predict(input_data_scaled)
                 
             # 4 - Decode countries using the reverse mapping dictionary.
-                input_data['Area'] = input_data['Area'].replace(decoder_area)
+                input_data['Area'] = input_data['Area'].replace(decoder_area).infer_objects(copy=False) # .infer_objects(copy=False) to keep the last replace behaviour, because in future versions it will be deleted
 
                 
                 predicted_crop = prediction[-1]  # Generally, the prediction is in the last column
@@ -430,7 +430,7 @@ elif page == "Predictions":
     #             prediction = model_regr.predict(input_data_scaled)
                 
     #         # 4 - Decode countries using the reverse mapping dictionary.
-    #             input_data['Crop'] = input_data['Crop'].replace(decoder_crop)
+    #             input_data['Crop'] = input_data['Crop'].replace(decoder_crop).infer_objects(copy=False)
 
                 
     #             predicted_yield = prediction[-1]  
