@@ -10,4 +10,4 @@ plotly
 joblib
 pycaret
 gdown
-pyarrow
+zipfile

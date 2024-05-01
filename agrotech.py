@@ -410,7 +410,7 @@ elif page == "Predictions":
     # PREDICTOR 2: REGRESSION MODEL ---------------------------------------------------------   
         
     with tab2:
-        st.markdown('## IN PROGRESS')
+        st.markdown('## 🚧 IN PROGRESS 🚧')
     #     # define ranges
     #     area_min = 1.0
     #     area_max = 3000000.0 
