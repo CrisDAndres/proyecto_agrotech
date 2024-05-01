@@ -5,12 +5,7 @@ from streamlit_option_menu import option_menu
 import numpy as np
 import pandas as pd
 import base64
-import gdown
 # Visualization
-import geopandas as gpd
-import seaborn as sns
-import matplotlib.pyplot as plt
-import plotly_express as px
 import plotly.graph_objects as go
 # modelling and forecasting
 import json
