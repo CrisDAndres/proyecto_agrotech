@@ -315,52 +315,44 @@ elif page == "Predictions":
     st.markdown("<p style='color: darkgreen; font-size: 36px; text-align: center;'>CropWise 🌱</p>", unsafe_allow_html=True)
     st.markdown("<p style='color: darkgreen; font-size: 24px; text-align: center;'>A crop recommendation platform using machine learning</p>", unsafe_allow_html=True)
 
-    # zip files (models) path
-    zip1_file_path = "crop_RF.zip"
-    # zip2_file_path = "yield_RF.zip"
+   
+    # Function to load models from ZIP files
+    def load_model_from_zip(zip_file_path, file_name):
+        with zipfile.ZipFile(zip_file_path, 'r') as zip_ref:
+            with zip_ref.open(file_name) as file:
+                model = load(file)
+        return model
 
-    # Files name to read inside zip file
-    file_name1 = "crop_RF.pkl"
-    # file_name2 = "yield_RF.pkl"
+    # Function to load files from JSON
+    def load_data_from_json_files():
+        with open('outputs/encoder_area.json', 'r') as f:
+            encoder_area = json.load(f)
+        with open('outputs/encoder_crop.json', 'r') as f:
+            encoder_crop = json.load(f)
+        with open('outputs/decoder_area.json', 'r') as f:
+            decoder_area = json.load(f)
+        with open('outputs/decoder_crop.json', 'r') as f:
+            decoder_crop = json.load(f)
+        with open('outputs/countries_final.json', 'r') as f:
+            countries = json.load(f)
+        with open('outputs/crops.json', 'r') as f:
+            crops = json.load(f)
+        return encoder_area, encoder_crop, decoder_area, decoder_crop, countries, crops
 
-    # Unzip the file
-    with zipfile.ZipFile(zip1_file_path, 'r') as zip_ref:
-        # Extract the file
-        with zip_ref.open(file_name1) as file1:
-            # Load model
-            model_classif = load(file1)
-    # # Unzip the file
-    # with zipfile.ZipFile(zip2_file_path, 'r') as zip_ref:
-    #     # Extract the file
-    #     with zip_ref.open(file_name2) as file2:
-    #         # load model
-    #         model_regr = load(file2)
-    
-    ## upload files from local
-    scaler_regr = load('outputs/scaler_regr.pkl') # regression model scaler
-    scaler_classif = load('outputs/scaler_classif.pkl') # classification model scaler
-    # model_regr = load_model('models/yield_RF') # regression Random Forest model
-    # model_classif = load_model('models/crop_RF') # classification Random Forest model
-
-    # read JSON files with encoder and decoder
-    with open('outputs/encoder_area.json', 'r') as f:
-        encoder_area = json.load(f)
-    
-    with open('outputs/encoder_crop.json', 'r') as f:
-        encoder_crop = json.load(f)
-
-    with open('outputs/decoder_area.json', 'r') as f:
-        decoder_area = json.load(f)
-
-    with open('outputs/decoder_crop.json', 'r') as f:
-        decoder_crop = json.load(f)
+    # Load models and data only once when starting the application with st.cache_data
+    @st.cache_data()
+    def load_models_and_data():
+        # load model from ZIP
+        model_classif = load_model_from_zip("models/crop_RF.zip", "crop_RF.pkl")
+        # load scaler
+        scaler_classif = load('outputs/scaler_classif.pkl') # classification model scaler
+        # load files from JSON
+        encoder_area, encoder_crop, decoder_area, decoder_crop, countries, crops = load_data_from_json_files()
         
-# read JSON file with countries list
-    with open('outputs/countries_final.json', 'r') as f:
-        countries = json.load(f)
-# read JSON file with crop list
-    with open('outputs/crops.json', 'r') as f:
-        crops = json.load(f)
+        return model_classif, scaler_classif, encoder_area, encoder_crop, decoder_area, decoder_crop, countries, crops
+
+    # Start loading of models and data at start of the application
+    model_classif, scaler_classif, encoder_area, encoder_crop, decoder_area, decoder_crop, countries, crops = load_models_and_data()
         
      # ---------------------TABS----------------------#
     tab1, tab2 = st.tabs(
