@@ -339,7 +339,7 @@ elif page == "Predictions":
     ## upload files from local
     scaler_regr = load('outputs/scaler_regr.pkl') # regression model scaler
     scaler_classif = load('outputs/scaler_classif.pkl') # classification model scaler
-    model_regr = load_model('models/yield_RF') # regression Random Forest model
+    # model_regr = load_model('models/yield_RF') # regression Random Forest model
     # model_classif = load_model('models/crop_RF') # classification Random Forest model
 
     # read JSON files with encoder and decoder
@@ -410,41 +410,42 @@ elif page == "Predictions":
     # PREDICTOR 2: REGRESSION MODEL ---------------------------------------------------------   
         
     with tab2:
-        # define ranges
-        area_min = 1.0
-        area_max = 3000000.0 
-        prod_min = 0.06
-        prod_max = 15000000.0   
-        temp_min = - 5.0
-        temp_max = 30.0
+        st.markdown('## IN PROGRESS')
+    #     # define ranges
+    #     area_min = 1.0
+    #     area_max = 3000000.0 
+    #     prod_min = 0.06
+    #     prod_max = 15000000.0   
+    #     temp_min = - 5.0
+    #     temp_max = 30.0
         
-        with st.form("yield_prediction_form"): 
+    #     with st.form("yield_prediction_form"): 
             
-            crop = st.selectbox('Crop:', crops)
-            # create sliders to select ranges
-            area_harvested = st.slider('Harvested area (ha):', area_min, area_max,area_min)
-            production = st.slider('Production (tonnes):', prod_min, prod_max,prod_min)
-            temp = st.slider('Temperature (ºC):', temp_min, temp_max,temp_min)
-            submit_button = st.form_submit_button(label='Predict yield')
+    #         crop = st.selectbox('Crop:', crops)
+    #         # create sliders to select ranges
+    #         area_harvested = st.slider('Harvested area (ha):', area_min, area_max,area_min)
+    #         production = st.slider('Production (tonnes):', prod_min, prod_max,prod_min)
+    #         temp = st.slider('Temperature (ºC):', temp_min, temp_max,temp_min)
+    #         submit_button = st.form_submit_button(label='Predict yield')
 
-            if submit_button:
-                input_data = pd.DataFrame([[crop,area_harvested, production, temp]],
-                                        columns=['Crop','area_harvested_ha', 'production_tonnes', 'avg_temp_ºC']) # Same order as training
+    #         if submit_button:
+    #             input_data = pd.DataFrame([[crop,area_harvested, production, temp]],
+    #                                     columns=['Crop','area_harvested_ha', 'production_tonnes', 'avg_temp_ºC']) # Same order as training
 
-            # 1- First I encode what the user enters into numbers using the mapping json.
-                input_data['Crop'] = input_data['Crop'].replace(encoder_crop)
+    #         # 1- First I encode what the user enters into numbers using the mapping json.
+    #             input_data['Crop'] = input_data['Crop'].replace(encoder_crop)
 
-            # 2 - Normalise the input data
-                input_data_scaled = scaler_regr.transform(input_data)
+    #         # 2 - Normalise the input data
+    #             input_data_scaled = scaler_regr.transform(input_data)
 
 
-            # 3 - Make the prediction with the model
+    #         # 3 - Make the prediction with the model
         
-                prediction = model_regr.predict(input_data_scaled)
+    #             prediction = model_regr.predict(input_data_scaled)
                 
-            # 4 - Decode countries using the reverse mapping dictionary.
-                input_data['Crop'] = input_data['Crop'].replace(decoder_crop)
+    #         # 4 - Decode countries using the reverse mapping dictionary.
+    #             input_data['Crop'] = input_data['Crop'].replace(decoder_crop)
 
                 
-                predicted_yield = prediction[-1]  
-                st.write(f"<p style='font-size: 24px; font-weight: bold;'>The prediction of the crop yield based on the selected variables is: {predicted_yield:.2f} hg/ha</p>", unsafe_allow_html=True)
+    #             predicted_yield = prediction[-1]  
+    #             st.write(f"<p style='font-size: 24px; font-weight: bold;'>The prediction of the crop yield based on the selected variables is: {predicted_yield:.2f} hg/ha</p>", unsafe_allow_html=True)
