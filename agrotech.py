@@ -334,7 +334,7 @@ elif page == "Predictions":
         return encoder_area, encoder_crop, decoder_area, decoder_crop, countries, crops
 
     # Load models and data only once when starting the application with st.cache_data
-    @st.cache_resource(allow_output_mutation=True)
+    @st.cache_resource()
     def load_models_and_data():
         # load model from ZIP
         model_classif = load_model_from_zip("crop_RF.zip", "crop_RF.pkl")
