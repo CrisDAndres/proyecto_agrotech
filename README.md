@@ -20,7 +20,7 @@ The aim of the project is to use data analysis techniques to extract information
   📱
 </p>
 <p align="center">
-  <b>NOTE: Predictions are not executed in the app deploy. A demo video is shown below to demonstrate how the prediction works. You can run the full application on the local host.</b><br>
+  <b>NOTE: Yield prediction is in progress 🚧 in the in the deployment of the application, due to the large size of the file. Below is a video demonstration of how both predictions work.</b><br>
 </p>
 
 *Data source:*
