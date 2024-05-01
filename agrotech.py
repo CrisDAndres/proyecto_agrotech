@@ -16,6 +16,8 @@ import plotly.graph_objects as go
 import json
 from joblib import load
 from pycaret.regression import load_model, predict_model
+import zipfile
+
 
 # ---------------------SITE CONFIG----------------------#
 st.set_page_config(
@@ -312,27 +314,33 @@ elif page == "Fertilizers":
 elif page == "Predictions":
     st.markdown("<p style='color: darkgreen; font-size: 36px; text-align: center;'>CropWise 🌱</p>", unsafe_allow_html=True)
     st.markdown("<p style='color: darkgreen; font-size: 24px; text-align: center;'>A crop recommendation platform using machine learning</p>", unsafe_allow_html=True)
-    
-    # # download models files from google drive
-    # url1 = "https://drive.google.com/uc?id=1TfydDkRqT2zJINmXc6RvrG7HOEuxkZgG"
-    # url2 = "https://drive.google.com/uc?id=1jRCQOX5_n6-Z-KtTZaCaDg-HNIneG6wN"
-    
-    # gdown.download(url1, "crop_RF.pkl",quiet=True) # classification Random Forest model
-    # gdown.download(url2, "yield_RF.pkl",quiet=True) # regression Random Forest model
-    
-    # # upload models
-    # model_classif = load('./crop_RF.pkl') # classification Random Forest model
-    # model_regr = load('./yield_RF.pkl') # regression Random Forest model
-    
-    # ## upload scalers
-    # scaler_regr = load('outputs/scaler_regr.pkl') # regression model scaler
-    # scaler_classif = load('outputs/scaler_classif.pkl') # classification model scaler
+
+    # zip files (models) path
+    zip1_file_path = "crop_RF.zip"
+    # zip2_file_path = "yield_RF.zip"
+
+    # Files name to read inside zip file
+    file_name1 = "crop_RF.pkl"
+    # file_name2 = "yield_RF.pkl"
+
+    # Unzip the file
+    with zipfile.ZipFile(zip1_file_path, 'r') as zip_ref:
+        # Extract the file
+        with zip_ref.open(file_name1) as file1:
+            # Load model
+            model_classif = load(file1)
+    # # Unzip the file
+    # with zipfile.ZipFile(zip2_file_path, 'r') as zip_ref:
+    #     # Extract the file
+    #     with zip_ref.open(file_name2) as file2:
+    #         # load model
+    #         model_regr = load(file2)
     
     ## upload files from local
     scaler_regr = load('outputs/scaler_regr.pkl') # regression model scaler
     scaler_classif = load('outputs/scaler_classif.pkl') # classification model scaler
     model_regr = load_model('models/yield_RF') # regression Random Forest model
-    model_classif = load_model('models/crop_RF') # classification Random Forest model
+    # model_classif = load_model('models/crop_RF') # classification Random Forest model
 
     # read JSON files with encoder and decoder
     with open('outputs/encoder_area.json', 'r') as f:
