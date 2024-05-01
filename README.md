@@ -38,6 +38,8 @@ The project consists of the following files:
 - ``/Data/``: Folder available on the Google Drive link [Data](https://drive.google.com/drive/folders/1YNj80AnFaNC3GuXIMYGxBIITjxB3YKO6?usp=drive_link), containing the data files in csv format.
 
 - ``/models/``: Folder available on the Google Drive link [models](https://drive.google.com/drive/folders/1UXQyxmJeZ7ec-qsOd3Ks3UAUc2zSUKle?usp=drive_link), containing the trained classification and regression models in pkl format.
+  
+- ``crop_RF.zip``: Zip folder containing the classification model used for the best crop prediction.
 
 - ``/notebooks/``: Folder containing different Jupyter Notebooks with all the code used to perform the data analysis (preprocessing, EDA, ML model evaluation) and explanations of each step.
 
