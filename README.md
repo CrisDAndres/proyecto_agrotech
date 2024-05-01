@@ -31,23 +31,23 @@ The aim of the project is to use data analysis techniques to extract information
 
 The project consists of the following files:
 
-- ``/Data/``: Folder available on the Google Drive link [Data](https://drive.google.com/drive/folders/1YNj80AnFaNC3GuXIMYGxBIITjxB3YKO6?usp=drive_link), containing the data files in csv format.
+- ``Data/``: Folder available on the Google Drive link [Data](https://drive.google.com/drive/folders/1YNj80AnFaNC3GuXIMYGxBIITjxB3YKO6?usp=drive_link), containing the data files in csv format.
 
-- ``models``: Folder containing the trained classification model in .pkl format used for the best crop prediction.
+- ``models/``: Folder containing the trained classification model in .pkl format used for the best crop prediction.
 
-- ``/notebooks/``: Folder containing different Jupyter Notebooks with all the code used to perform the data analysis (preprocessing, EDA, ML model evaluation) and explanations of each step.
+- ``notebooks/``: Folder containing different Jupyter Notebooks with all the code used to perform the data analysis (preprocessing, EDA, ML model evaluation) and explanations of each step.
 
 - ``agrotech.py`` : Python script for the full Streamlit app.
 
 - ``agrotech_azureML.py`` : Python script for the prediction app implemented with AzureML.
 
-- ``/img/``: Folder containing images and graphics developed in the project.
+- ``img/``: Folder containing images and graphics developed in the project.
 
-- ``/html/``: Folder containing interactive graphics developed in the project.
+- ``html/``: Folder containing interactive graphics developed in the project.
 
-- ``/outputs/``: Folder containing various .json and .pkl files used in the development of the project.
+- ``outputs/``: Folder containing various .json and .pkl files used in the development of the project.
 
-- ``/AzureML/``: Images of the classification pipeline, best model and metrics.
+- ``AzureML/``: Images of the classification pipeline, best model and metrics.
 
 ---
 
