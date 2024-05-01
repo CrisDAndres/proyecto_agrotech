@@ -15,7 +15,6 @@ import plotly.graph_objects as go
 # modelling and forecasting
 import json
 from joblib import load
-from pycaret.regression import load_model, predict_model
 import zipfile
 
 

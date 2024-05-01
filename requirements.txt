@@ -2,12 +2,11 @@ streamlit
 streamlit-option-menu
 numpy
 pandas
-scikit-learn==1.4.1.post1
+scikit-learn
 geopandas
 seaborn
 matplotlib
 plotly-express
 plotly
 joblib
-pycaret
 gdown
