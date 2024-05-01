@@ -337,7 +337,7 @@ elif page == "Predictions":
     @st.cache_resource()
     def load_models_and_data():
         # load model from ZIP
-        model_classif = load_model_from_zip("crop_RF.zip", "crop_RF.pkl")
+        model_classif = load_model_from_zip("models.zip", "crop_RF.pkl")
         # load scaler
         scaler_classif = load('outputs/scaler_classif.pkl') # classification model scaler
         # load files from JSON
