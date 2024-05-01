@@ -20,7 +20,7 @@ The aim of the project is to use data analysis techniques to extract information
   📱
 </p>
 <p align="center">
-  <b>NOTE: Yield prediction is in progress 🚧 in the in the deployment of the application, due to the large size of the file. Below is a video demonstration of how both predictions work.</b><br>
+  <b>NOTE: Yield prediction is 🚧 in progress 🚧 in the deployment of the application, due to the large size of the file. Below is a video demonstration of how both predictions work.</b><br>
 </p>
 
 *Data source:*
